@@ -19,25 +19,8 @@ export async function ensureUserProfile(user: User): Promise<UserProfile | null>
 
   if (!organizationName) return null;
 
-  const { data: organization, error: orgError } = await supabase
-    .from("organizations")
-    .insert({ name: organizationName })
-    .select("id")
-    .single();
-
-  if (orgError) throw orgError;
-
-  const profilePayload = {
-    id: user.id,
-    organization_id: organization.id,
-    role: "corporate_admin" as const,
-    email: user.email ?? null,
-    full_name: user.email?.split("@")[0] ?? null,
-  };
-
   const { data: profile, error: profileError } = await supabase
-    .from("users")
-    .insert(profilePayload)
+    .rpc("create_user_workspace", { workspace_name: organizationName })
     .select("id, organization_id, role, full_name, email, credit_balance")
     .single<UserProfile>();
 

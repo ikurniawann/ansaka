@@ -34,6 +34,19 @@ const copy = {
   },
 };
 
+function getErrorMessage(caught: unknown) {
+  if (caught instanceof Error) return caught.message;
+
+  if (caught && typeof caught === "object") {
+    const maybeError = caught as { message?: unknown; error_description?: unknown; details?: unknown };
+    if (typeof maybeError.message === "string") return maybeError.message;
+    if (typeof maybeError.error_description === "string") return maybeError.error_description;
+    if (typeof maybeError.details === "string") return maybeError.details;
+  }
+
+  return "Terjadi kesalahan. Coba ulang beberapa saat lagi.";
+}
+
 export function AuthShell({ mode }: AuthShellProps) {
   const content = copy[mode];
   const isSignup = mode === "signup";
@@ -111,11 +124,7 @@ export function AuthShell({ mode }: AuthShellProps) {
       router.push("/dashboard");
       router.refresh();
     } catch (caught) {
-      const nextError =
-        caught instanceof Error
-          ? caught.message
-          : "Terjadi kesalahan. Coba ulang beberapa saat lagi.";
-      setError(nextError);
+      setError(getErrorMessage(caught));
     } finally {
       setIsSubmitting(false);
     }
