@@ -1,0 +1,267 @@
+{
+  "common": {
+    "appName": "ANSAKA OAM Insight",
+    "tagline": "Platform Diagnostik Organisasi",
+    "loading": "Memuat...",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "submit": "Kirim",
+    "next": "Lanjut",
+    "previous": "Kembali",
+    "close": "Tutup",
+    "edit": "Edit",
+    "delete": "Hapus",
+    "create": "Buat",
+    "search": "Cari",
+    "language": "Bahasa",
+    "logout": "Keluar",
+    "login": "Masuk",
+    "register": "Daftar",
+    "yes": "Ya",
+    "no": "Tidak",
+    "required": "Wajib diisi",
+    "error": "Terjadi kesalahan",
+    "success": "Berhasil"
+  },
+  "nav": {
+    "home": "Beranda",
+    "services": "Layanan",
+    "insight": "Business Insight",
+    "about": "Tentang Kami",
+    "contact": "Hubungi Kami",
+    "dashboard": "Dashboard",
+    "batches": "Kelola Survei",
+    "credits": "Kredit",
+    "settings": "Pengaturan"
+  },
+  "marketing": {
+    "hero": {
+      "title": "Diagnostik Organisasi Berbasis Data",
+      "subtitle": "Identifikasi akar masalah organisasi Anda dengan framework Organizational Alignment Map (OAM) — 12 Drivers, 27 Failure Points, 6 Execution Gaps.",
+      "ctaPrimary": "Mulai Diagnostik",
+      "ctaSecondary": "Pelajari Lebih Lanjut"
+    },
+    "services": {
+      "title": "Tiga Layanan Utama",
+      "intelligence": {
+        "title": "Intelligence",
+        "desc": "Self-diagnose online survey berbasis OAM framework"
+      },
+      "diagnostic": {
+        "title": "Diagnostic",
+        "desc": "Diagnosa lengkap: Survey + Interview + FGD + Workshop"
+      },
+      "solution": {
+        "title": "Solution",
+        "desc": "Intervensi presisi yang menjawab gap hasil diagnosa"
+      },
+      "ldaas": {
+        "title": "LDaaS",
+        "desc": "Routine health check dan retainer konsultasi berkelanjutan"
+      }
+    }
+  },
+  "auth": {
+    "loginTitle": "Masuk ke Akun Anda",
+    "registerTitle": "Daftar Akun Baru",
+    "email": "Email",
+    "password": "Kata Sandi",
+    "confirmPassword": "Konfirmasi Kata Sandi",
+    "organizationName": "Nama Perusahaan",
+    "industry": "Industri",
+    "sizeRange": "Ukuran Perusahaan",
+    "country": "Negara",
+    "noAccount": "Belum punya akun?",
+    "hasAccount": "Sudah punya akun?",
+    "forgotPassword": "Lupa kata sandi?"
+  },
+  "survey": {
+    "title": "Survei Organizational Alignment Map",
+    "intro": {
+      "welcome": "Selamat datang",
+      "anonymous": "Survei ini sepenuhnya anonim. Jawaban Anda akan digabung dengan responden lain.",
+      "duration": "Estimasi waktu pengisian: 15-20 menit",
+      "instructions": "Mohon jawab dengan jujur berdasarkan pengalaman Anda di organisasi.",
+      "start": "Mulai Survei"
+    },
+    "scale": {
+      "1": "Sangat Tidak Setuju",
+      "2": "Tidak Setuju",
+      "3": "Setuju",
+      "4": "Sangat Setuju",
+      "0": "Tidak Tahu / Tidak Relevan"
+    },
+    "openEnded": "Pertanyaan Terbuka",
+    "openEndedHelper": "Opsional. Bagikan contoh nyata atau detail spesifik.",
+    "progress": "Driver {{current}} dari {{total}}",
+    "submit": "Kirim Jawaban",
+    "submitting": "Mengirim...",
+    "thankyou": {
+      "title": "Terima Kasih!",
+      "message": "Jawaban Anda telah berhasil disimpan secara anonim.",
+      "subtext": "Hasil agregat akan ditampilkan di dashboard organisasi setelah jumlah responden minimum tercapai."
+    },
+    "error": {
+      "invalidToken": "Link survei tidak valid atau sudah ditutup.",
+      "expired": "Survei ini sudah berakhir.",
+      "submitFailed": "Gagal mengirim jawaban. Silakan coba lagi."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard Organisasi",
+    "overall": "Skor Keseluruhan",
+    "respondents": "Responden",
+    "of": "dari",
+    "minNotMet": "Dashboard akan aktif setelah minimal {{min}} responden mengisi survei.",
+    "currentRespondents": "Responden saat ini: {{count}}",
+    "executiveSummary": "Executive Summary",
+    "priorityHeatmap": "Priority Heatmap",
+    "layerView": "Layer View",
+    "driverDeepDive": "Driver Deep Dive",
+    "patternIntelligence": "Pattern Intelligence",
+    "qualitativeSentiment": "Qualitative Sentiment",
+    "topCriticalDrivers": "3 Driver Paling Kritis",
+    "requestDeepDive": "Minta Analisis Mendalam"
+  },
+  "credits": {
+    "title": "Kelola Kredit",
+    "balance": "Saldo Kredit",
+    "buyCredits": "Beli Kredit",
+    "history": "Riwayat Transaksi",
+    "package": "Paket",
+    "amount": "Jumlah",
+    "price": "Harga",
+    "buy": "Beli"
+  },
+  "admin": {
+    "title": "Super Admin Panel",
+    "organizations": "Organisasi",
+    "batches": "Survei Batch",
+    "credits": "Kelola Kredit",
+    "packages": "Paket Kredit",
+    "benchmark": "Benchmark Industri",
+    "formulas": "Formula OAM",
+    "pricing": "Tier Harga",
+    "cms": "Content Management"
+  },
+  "scoreLevels": {
+    "Critical": "Kritis",
+    "Weak": "Lemah",
+    "Stable": "Stabil",
+    "Strong": "Kuat",
+    "Fragile": "Rapuh",
+    "Developing": "Berkembang",
+    "Performing": "Performa Tinggi"
+  },
+  "drivers": {
+    "D1": "Vision & Direction Clarity",
+    "D2": "Strategy & Priority to Team Alignment",
+    "D3": "Leadership Alignment & Consistency",
+    "D4": "Role & Responsibility Clarity",
+    "D5": "Decision Making Effectiveness",
+    "D6": "Management System Alignment & KPI Clarity",
+    "D7": "Performance & Accountability",
+    "D8": "Communication Flow",
+    "D9": "Cross-Team Collaboration",
+    "D10": "Capability & Skill Readiness",
+    "D11": "Ownership & Initiative",
+    "D12": "Feedback & Continuous Learning"
+  },
+  "questions": {
+    "D1": {
+      "Q1": "Saya dapat menjelaskan arah utama organisasi saat ini dengan bahasa yang sederhana dan tidak perlu menebak-nebak sendiri.",
+      "Q2": "Strategi organisasi yang sedang dijalankan cukup jelas bagi saya untuk dipahami sebagai perubahan tindakan, bukan hanya slogan atau istilah umum.",
+      "Q3": "Ketika ada banyak tuntutan pekerjaan, saya tahu mana yang harus diprioritaskan lebih dulu karena urutan prioritas organisasi cukup jelas.",
+      "Q4": "Target atau fokus kerja yang diberikan kepada saya/tim terhubung jelas dengan tujuan organisasi yang lebih besar.",
+      "Q5": "Arah dan strategi organisasi sudah diterjemahkan ke pekerjaan sehari-hari, sehingga saya tahu apa yang perlu dilakukan secara spesifik dalam peran saya.",
+      "Q6": "Perubahan arah, prioritas, atau target kerja biasanya dijelaskan dengan cukup jelas sehingga tidak menimbulkan interpretasi yang berbeda-beda.",
+      "openEnded": "Bagian mana dari arah, strategi, prioritas, atau target organisasi yang saat ini paling membingungkan dalam praktik kerja? Jelaskan contoh nyatanya."
+    },
+    "D2": {
+      "Q1": "Saya memahami dengan jelas bagaimana strategi organisasi diterjemahkan ke arah kerja tim saya.",
+      "Q2": "Saya mengetahui perubahan nyata apa yang seharusnya terjadi di tim saya sebagai dampak dari strategi organisasi.",
+      "Q3": "Pemahaman mengenai arah dan prioritas organisasi di tim saya tidak berbeda jauh dengan tim atau unit lain.",
+      "Q4": "Strategi organisasi benar-benar mempengaruhi cara kerja sehari-hari tim saya, bukan hanya berhenti di level manajemen.",
+      "openEnded": "Bagian mana dari proses turunnya strategi ke level tim yang paling membingungkan atau tidak berjalan dengan jelas? Berikan contoh nyatanya."
+    },
+    "D3": {
+      "Q1": "Para pimpinan di organisasi ini menyampaikan arah dan prioritas yang sejalan satu sama lain.",
+      "Q2": "Saya jarang menerima arahan yang saling bertentangan dari pimpinan yang berbeda.",
+      "Q3": "Pesan dan keputusan yang disampaikan pimpinan relatif konsisten dari waktu ke waktu.",
+      "Q4": "Ketika terjadi perubahan arah atau keputusan, pimpinan menjelaskan perubahan tersebut dengan cukup jelas kepada tim.",
+      "openEnded": "Di bagian mana kepemimpinan paling sering terasa tidak selaras atau tidak konsisten? Berikan contoh situasi nyatanya."
+    },
+    "D4": {
+      "Q1": "Saya memahami dengan jelas peran dan tanggung jawab saya dalam pekerjaan sehari-hari.",
+      "Q2": "Dalam tim saya, jarang terjadi kebingungan mengenai siapa yang bertanggung jawab atas suatu pekerjaan.",
+      "Q3": "Pembagian tugas di tim saya jelas dan tidak sering terjadi overlap atau kekosongan tanggung jawab.",
+      "Q4": "Ketika terjadi pekerjaan lintas fungsi atau masalah, tetap jelas siapa yang harus mengambil tanggung jawab.",
+      "openEnded": "Dalam pengalaman Anda, di bagian mana paling sering terjadi kebingungan terkait peran atau tanggung jawab? Berikan contoh situasi nyatanya."
+    },
+    "D5": {
+      "Q1": "Saya memahami dengan jelas siapa yang memiliki kewenangan untuk mengambil keputusan dalam situasi kerja saya.",
+      "Q2": "Keputusan biasanya diambil di level yang tepat tanpa harus selalu naik ke level yang lebih tinggi.",
+      "Q3": "Keputusan yang diambil umumnya jelas dan dapat dipahami oleh pihak yang terlibat.",
+      "Q4": "Keputusan jarang perlu diulang atau direvisi karena kesalahan atau ketidakjelasan.",
+      "Q5": "Keputusan dapat diambil dengan cukup cepat tanpa proses yang berlarut-larut.",
+      "Q6": "Proses pengambilan keputusan tidak terlalu banyak melibatkan pihak yang tidak diperlukan.",
+      "openEnded": "Dalam pengalaman Anda, di mana proses pengambilan keputusan paling sering mengalami hambatan atau tidak berjalan efektif? Berikan contoh nyatanya."
+    },
+    "D6": {
+      "Q1": "KPI atau target yang saya terima memiliki hubungan yang jelas dengan tujuan organisasi.",
+      "Q2": "Target di tim saya selaras dengan target di level organisasi dan tidak saling bertabrakan.",
+      "Q3": "Kinerja tim dimonitor secara rutin menggunakan indikator yang jelas.",
+      "Q4": "Ketika performa tidak sesuai target, ada tindak lanjut yang jelas berdasarkan data atau hasil monitoring.",
+      "Q5": "Setiap KPI memiliki pemilik (owner) yang jelas dan diketahui oleh semua pihak terkait.",
+      "Q6": "Sistem yang ada memastikan adanya akuntabilitas terhadap pencapaian KPI, bukan hanya bergantung pada individu.",
+      "openEnded": "Di bagian mana sistem KPI atau monitoring kinerja saat ini paling tidak jelas atau tidak efektif? Berikan contoh nyatanya."
+    },
+    "D7": {
+      "Q1": "Ketika target atau KPI tidak tercapai, biasanya ada tindak lanjut yang jelas untuk memperbaiki situasi.",
+      "Q2": "Masalah atau kegagalan dalam pekerjaan tidak dibiarkan berulang tanpa perbaikan yang nyata.",
+      "Q3": "Pimpinan secara aktif melakukan follow-up terhadap kinerja tim, bukan hanya menetapkan target.",
+      "Q4": "Pimpinan menunjukkan tanggung jawab yang jelas terhadap hasil tim atau organisasi.",
+      "Q5": "Terdapat konsekuensi atau tindakan yang jelas ketika performa tidak sesuai dengan target.",
+      "openEnded": "Apa yang biasanya terjadi ketika target tidak tercapai di organisasi Anda? Jelaskan contoh nyatanya."
+    },
+    "D8": {
+      "Q1": "Informasi penting yang saya butuhkan untuk bekerja biasanya tersedia tepat waktu.",
+      "Q2": "Informasi yang disampaikan dalam organisasi jarang berubah atau terdistorsi saat diteruskan.",
+      "Q3": "Saya memahami dengan jelas pesan atau informasi yang disampaikan oleh pihak lain.",
+      "Q4": "Miskomunikasi jarang menyebabkan pekerjaan harus diulang atau diperbaiki.",
+      "openEnded": "Jenis informasi apa yang paling sering terlambat, tidak jelas, atau menimbulkan miskomunikasi? Berikan contoh nyatanya."
+    },
+    "D9": {
+      "Q1": "Prioritas antar tim atau divisi di organisasi ini umumnya selaras dan tidak sering bertabrakan.",
+      "Q2": "Bekerja sama dengan tim atau divisi lain dapat dilakukan dengan cukup lancar tanpa hambatan berarti.",
+      "Q3": "Ketergantungan antar tim (handover, approval, dll) dikelola dengan cukup baik dan tidak sering menjadi bottleneck.",
+      "Q4": "Ketika terjadi konflik antar tim, masalah tersebut biasanya diselesaikan secara konstruktif.",
+      "Q5": "Konflik antar tim tidak dibiarkan berlarut-larut atau berulang tanpa penyelesaian yang jelas.",
+      "openEnded": "Apa tantangan terbesar dalam bekerja lintas tim atau divisi saat ini? Berikan contoh situasi nyatanya."
+    },
+    "D10": {
+      "Q1": "Tim saya memiliki kemampuan yang cukup untuk menjalankan pekerjaan tanpa kesulitan berarti.",
+      "Q2": "Pekerjaan jarang tertunda atau bermasalah karena keterbatasan skill dalam tim.",
+      "Q3": "Program pelatihan atau pengembangan yang ada membantu meningkatkan performa kerja secara nyata.",
+      "Q4": "Setelah mengikuti training, terdapat perubahan yang terlihat dalam cara kerja atau hasil kerja tim.",
+      "Q5": "Kebutuhan skill yang diperlukan untuk pekerjaan saat ini dapat diidentifikasi dengan cukup jelas.",
+      "openEnded": "Di bagian mana keterbatasan skill atau training paling sering menjadi hambatan dalam pekerjaan? Berikan contoh nyatanya."
+    },
+    "D11": {
+      "Q1": "Anggota tim biasanya menyelesaikan masalah tanpa harus selalu menunggu arahan dari atasan.",
+      "Q2": "Ketika terjadi masalah, individu yang terlibat cenderung mengambil tanggung jawab sampai selesai.",
+      "Q3": "Jarang terjadi saling melempar tanggung jawab dalam pekerjaan sehari-hari.",
+      "Q4": "Tim secara aktif mengusulkan ide atau perbaikan tanpa harus diminta.",
+      "Q5": "Individu dalam tim tidak hanya menjalankan tugas, tetapi juga berusaha meningkatkan cara kerja.",
+      "openEnded": "Dalam pengalaman Anda, kapan terakhir kali Anda melihat ownership atau inisiatif yang kuat atau lemah dalam tim? Jelaskan situasinya."
+    },
+    "D12": {
+      "Q1": "Feedback diberikan secara rutin dan cukup spesifik untuk membantu perbaikan kerja.",
+      "Q2": "Feedback yang diberikan biasanya benar-benar digunakan untuk memperbaiki cara kerja.",
+      "Q3": "Setelah terjadi kesalahan atau masalah, dilakukan evaluasi yang jelas.",
+      "Q4": "Perbaikan dilakukan secara nyata setelah evaluasi, bukan hanya dibahas saja.",
+      "Q5": "Masalah yang sama tidak sering terulang karena sudah ada perbaikan sebelumnya.",
+      "openEnded": "Bagaimana biasanya organisasi Anda belajar dari kesalahan atau feedback? Berikan contoh situasi nyatanya."
+    }
+  }
+}

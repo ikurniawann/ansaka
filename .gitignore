@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+.vite/
+
+# Environment
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo
+.codex/
+.mcp.json
+
+# Supabase
+supabase/.branches/
+supabase/.temp/
+
+# Server-side secrets
+.env.server
+
+# Local capture artifacts
+app/screenshot*.js
+app/create-pdf.js
+app/screenshot-*.png
+app/vite.config.js.timestamp-*
