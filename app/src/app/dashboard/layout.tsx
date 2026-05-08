@@ -136,11 +136,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               </div>
             </div>
           )}
-          <div className="flex gap-1">
+          <div className="space-y-1.5">
             <ThemeToggle />
             <button
               onClick={handleLogout}
-              className="flex flex-1 items-center gap-2 rounded-[0.875rem] px-3 py-2 text-xs font-medium text-slate-400 transition-colors hover:bg-white/8 hover:text-slate-100"
+              className="flex w-full items-center gap-2 rounded-[0.875rem] px-3 py-2 text-xs font-medium text-slate-400 transition-colors hover:bg-white/8 hover:text-slate-100"
             >
               <LogOut className="size-4" />
               Logout
