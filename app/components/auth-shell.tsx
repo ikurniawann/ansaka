@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, Building2, LockKeyhole, Mail, UserRound } from "lucide-react";
+import { ArrowRight, Building2, LockKeyhole, Mail, UserRound } from "lucide-react";
 import { FormEvent, useState } from "react";
 
+import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
 import { ensureUserProfile } from "@/lib/profiles";
 import { supabase } from "@/lib/supabase-client";
@@ -132,20 +133,14 @@ export function AuthShell({ mode }: AuthShellProps) {
 
   return (
     <main className="min-h-screen overflow-hidden bg-background text-foreground">
+      <SiteHeader />
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(125,211,252,0.20),transparent_28%),radial-gradient(circle_at_84%_20%,rgba(244,202,137,0.18),transparent_24%),linear-gradient(140deg,hsl(var(--background)),hsl(var(--muted)))]" />
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/30 to-transparent" />
       </div>
 
-      <section className="mx-auto grid min-h-screen max-w-7xl items-center gap-10 px-4 py-28 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
+      <section className="mx-auto grid min-h-screen max-w-7xl items-center gap-10 px-4 pb-28 pt-36 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
         <div>
-          <Button asChild variant="ghost" className="mb-10">
-            <Link href="/">
-              <ArrowLeft className="size-4" />
-              Back to home
-            </Link>
-          </Button>
-
           <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
             {content.eyebrow}
           </p>

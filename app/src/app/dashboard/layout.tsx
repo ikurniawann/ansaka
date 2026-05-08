@@ -59,25 +59,24 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }
 
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* Sidebar — always dark */}
-      <aside className="dark fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-white/10 bg-slate-900">
+    <div className="flex min-h-screen bg-background text-foreground">
+      <aside className="fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-border bg-card/95 shadow-ink-soft backdrop-blur-xl">
         {/* Brand */}
-        <div className="flex h-16 items-center gap-3 border-b border-white/10 px-6">
-          <div className="grid size-8 place-items-center rounded-full bg-sky-400">
-            <Building2 className="size-4 text-slate-900" />
+        <div className="flex h-16 items-center gap-3 border-b border-border px-6">
+          <div className="grid size-8 place-items-center rounded-full bg-primary text-primary-foreground">
+            <Building2 className="size-4" />
           </div>
           <div>
-            <p className="text-sm font-semibold tracking-tight text-white">ANSAKA</p>
-            <p className="text-xs text-slate-400">OAM Insight</p>
+            <p className="text-sm font-semibold tracking-tight text-foreground">ANSAKA</p>
+            <p className="text-xs text-muted-foreground">OAM Insight</p>
           </div>
         </div>
 
         {/* Org info */}
         {orgName && (
-          <div className="border-b border-white/10 px-6 py-3">
-            <p className="text-xs text-slate-400">Workspace</p>
-            <p className="truncate text-sm font-medium text-slate-200">{orgName}</p>
+          <div className="border-b border-border px-6 py-3">
+            <p className="text-xs text-muted-foreground">Workspace</p>
+            <p className="truncate text-sm font-medium text-foreground">{orgName}</p>
           </div>
         )}
 
@@ -94,8 +93,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 className={cn(
                   "flex items-center gap-3 rounded-[0.875rem] px-3 py-2.5 text-sm font-medium transition-colors",
                   active
-                    ? "bg-sky-500/20 text-sky-300"
-                    : "text-slate-400 hover:bg-white/8 hover:text-slate-100",
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground",
                 )}
               >
                 <Icon className="size-4" />
@@ -106,14 +105,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
           {profile?.role === "super_admin" && (
             <>
-              <Separator className="my-2 bg-white/10" />
+              <Separator className="my-2 bg-border" />
               <Link
                 href="/admin"
                 className={cn(
                   "flex items-center gap-3 rounded-[0.875rem] px-3 py-2.5 text-sm font-medium transition-colors",
                   pathname.startsWith("/admin")
-                    ? "bg-sky-500/20 text-sky-300"
-                    : "text-slate-400 hover:bg-white/8 hover:text-slate-100",
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground",
                 )}
               >
                 <Shield className="size-4" />
@@ -124,23 +123,23 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </nav>
 
         {/* Footer */}
-        <div className="border-t border-white/10 p-3">
+        <div className="border-t border-border p-3">
           {profile && (
-            <div className="mb-2 flex items-center gap-2 rounded-[0.875rem] bg-white/6 px-3 py-2">
-              <div className="grid size-7 shrink-0 place-items-center rounded-full bg-sky-500 text-xs font-bold text-white">
+            <div className="mb-2 flex items-center gap-2 rounded-[0.875rem] bg-muted/70 px-3 py-2">
+              <div className="grid size-7 shrink-0 place-items-center rounded-full bg-foreground text-xs font-bold text-background">
                 {(profile.full_name ?? profile.email ?? "?")[0].toUpperCase()}
               </div>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-xs font-medium text-slate-200">{profile.full_name ?? profile.email}</p>
-                <p className="text-xs text-slate-400">{profile.credit_balance} credits</p>
+                <p className="truncate text-xs font-medium text-foreground">{profile.full_name ?? profile.email}</p>
+                <p className="text-xs text-muted-foreground">{profile.credit_balance} credits</p>
               </div>
             </div>
           )}
           <div className="space-y-1.5">
-            <ThemeToggle />
+            <ThemeToggle className="w-full" />
             <button
               onClick={handleLogout}
-              className="flex w-full items-center gap-2 rounded-[0.875rem] px-3 py-2 text-xs font-medium text-slate-400 transition-colors hover:bg-white/8 hover:text-slate-100"
+              className="flex w-full items-center gap-2 rounded-[0.875rem] px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               <LogOut className="size-4" />
               Logout

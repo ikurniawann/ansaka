@@ -14,7 +14,7 @@ const navItems = [
 export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8">
-      <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/12 bg-background/45 px-3 py-2 shadow-ink-soft backdrop-blur-2xl supports-[backdrop-filter]:bg-background/35">
+      <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-border/80 bg-card/90 px-3 py-2 shadow-ink-soft backdrop-blur-2xl supports-[backdrop-filter]:bg-card/85 dark:border-white/10 dark:bg-background/45 dark:supports-[backdrop-filter]:bg-background/40">
         <Link href="/" className="flex items-center gap-3 pl-2">
           <span className="grid size-8 place-items-center rounded-full bg-foreground text-xs font-semibold text-background">
             A
@@ -24,14 +24,14 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-5 text-xs uppercase tracking-[0.22em] text-muted-foreground xl:flex">
+        <nav className="hidden items-center gap-5 text-xs uppercase tracking-[0.22em] text-foreground/70 xl:flex">
           {navItems.map(([index, label]) => (
             <a
               className="group flex items-center gap-2 transition-colors hover:text-foreground"
               href={`#${label.toLowerCase()}`}
               key={label}
             >
-              <span className="font-mono text-[10px] text-foreground/60">
+              <span className="font-mono text-[10px] text-foreground/55">
                 {index}
               </span>
               {label}

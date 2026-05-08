@@ -65,7 +65,7 @@ function FloatingSignal({
   return (
     <motion.div
       className={cn(
-        "absolute z-20 w-56 rounded-[1.5rem] border border-white/18 bg-black/30 p-4 text-white shadow-ink-soft backdrop-blur-2xl",
+        "absolute z-20 w-56 rounded-[1.5rem] border border-white/20 bg-black/30 p-4 text-white shadow-ink-soft backdrop-blur-2xl",
         className,
       )}
       style={{ y }}
@@ -74,7 +74,7 @@ function FloatingSignal({
       transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
     >
       <div className="flex items-start justify-between gap-4">
-        <div className="text-[10px] uppercase tracking-[0.28em] text-white/58">
+        <div className="text-[10px] uppercase tracking-[0.28em] text-white/60">
           {title}
         </div>
         <div className="rounded-full border border-white/15 px-2 py-1 font-mono text-[10px] text-white/70">
@@ -84,7 +84,7 @@ function FloatingSignal({
       <div className="mt-4 text-4xl font-semibold tracking-[-0.05em]">
         {value}
       </div>
-      <p className="mt-3 text-sm leading-5 text-white/68">{body}</p>
+      <p className="mt-3 text-sm leading-5 text-white/70">{body}</p>
     </motion.div>
   );
 }
@@ -132,17 +132,17 @@ export function HeroParallax() {
 
         <motion.div
           aria-hidden="true"
-          className="absolute left-1/2 top-[18%] size-[38rem] -translate-x-1/2 rounded-full border border-white/12"
+          className="absolute left-1/2 top-[18%] size-[38rem] -translate-x-1/2 rounded-full border border-white/10"
           style={{ y: ringY }}
         />
         <motion.div
           aria-hidden="true"
-          className="absolute left-[9%] top-[18%] h-40 w-24 rounded-full border border-white/18 bg-white/8 blur-[0.2px]"
+          className="absolute left-[9%] top-[18%] h-40 w-24 rounded-full border border-white/20 bg-white/10 blur-[0.2px]"
           style={{ y: slowY }}
         />
         <motion.div
           aria-hidden="true"
-          className="absolute bottom-[18%] right-[8%] h-28 w-28 rounded-[2rem] border border-white/16 bg-white/7 rotate-12 backdrop-blur-md"
+          className="absolute bottom-[18%] right-[8%] h-28 w-28 rounded-[2rem] border border-white/15 bg-white/10 rotate-12 backdrop-blur-md"
           style={{ y: reverseY }}
         />
 
@@ -153,7 +153,7 @@ export function HeroParallax() {
           >
             <div className="relative z-30 max-w-4xl">
               <motion.div
-                className="mb-6 flex w-fit items-center gap-3 rounded-full border border-white/16 bg-black/25 px-3 py-2 text-[11px] uppercase tracking-[0.28em] text-white/72 backdrop-blur-2xl"
+                className="mb-6 flex w-fit items-center gap-3 rounded-full border border-white/15 bg-black/25 px-3 py-2 text-[11px] uppercase tracking-[0.28em] text-white/75 backdrop-blur-2xl"
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
@@ -172,7 +172,7 @@ export function HeroParallax() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.55, ease: "easeOut" }}
               >
-                <p className="max-w-2xl text-base leading-7 text-white/74 sm:text-lg">
+                <p className="max-w-2xl text-base leading-7 text-white/80 sm:text-lg">
                   ANSAKA turns leadership noise, execution drag, and culture
                   signals into one crisp organizational map before growth gets
                   expensive.
@@ -184,7 +184,11 @@ export function HeroParallax() {
                       <ArrowUpRight className="size-4" />
                     </a>
                   </Button>
-                  <Button size="lg" variant="ghost">
+                  <Button
+                    size="lg"
+                    variant="ghost"
+                    className="border border-white/25 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                  >
                     <Play className="size-4 fill-current" />
                     Watch flow
                   </Button>
@@ -197,13 +201,21 @@ export function HeroParallax() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.75, delay: 0.72, ease: "easeOut" }}
               >
-                <Button asChild variant="outline">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                >
                   <Link href="/login">
                     <LogIn className="size-4" />
                     Login portal
                   </Link>
                 </Button>
-                <Button asChild variant="ghost">
+                <Button
+                  asChild
+                  variant="ghost"
+                  className="border border-white/25 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                >
                   <Link href="/signup">
                     <UserPlus className="size-4" />
                     Create account
@@ -213,7 +225,7 @@ export function HeroParallax() {
             </div>
 
             <motion.div
-              className="relative z-30 hidden rounded-[1.75rem] border border-white/16 bg-black/28 p-4 text-white shadow-ink-soft backdrop-blur-2xl xl:block"
+              className="relative z-30 hidden rounded-[1.75rem] border border-white/15 bg-black/30 p-4 text-white shadow-ink-soft backdrop-blur-2xl xl:block"
               initial={{ opacity: 0, x: 36 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.85, delay: 0.62, ease: "easeOut" }}
@@ -221,19 +233,19 @@ export function HeroParallax() {
               <div className="grid gap-2">
                 {metrics.map(([value, label]) => (
                   <div
-                    className="grid grid-cols-[72px_1fr] items-center gap-4 rounded-[1.15rem] border border-white/12 bg-white/[0.06] p-4"
+                    className="grid grid-cols-[72px_1fr] items-center gap-4 rounded-[1.15rem] border border-white/10 bg-white/[0.06] p-4"
                     key={label}
                   >
                     <div className="text-4xl font-semibold tracking-[-0.06em]">
                       {value}
                     </div>
-                    <div className="text-[11px] uppercase leading-4 tracking-[0.18em] text-white/58">
+                    <div className="text-[11px] uppercase leading-4 tracking-[0.18em] text-white/60">
                       {label}
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="mt-4 rounded-[1.35rem] border border-white/12 bg-white/[0.06] p-4">
+              <div className="mt-4 rounded-[1.35rem] border border-white/10 bg-white/[0.06] p-4">
                 <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-white/55">
                   Scroll depth
                   <ArrowDown className="size-4 animate-bounce" />
@@ -245,7 +257,11 @@ export function HeroParallax() {
                   />
                 </div>
               </div>
-              <Button asChild variant="ghost" className="mt-4 w-full justify-between">
+              <Button
+                asChild
+                variant="ghost"
+                className="mt-4 w-full justify-between border border-white/20 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+              >
                 <Link href="/login">
                   Login or create workspace
                   <ArrowRight className="size-4" />
@@ -266,7 +282,7 @@ export function HeroParallax() {
           />
         ))}
 
-        <div className="absolute bottom-0 left-0 right-0 z-10 border-y border-white/12 bg-black/25 py-3 text-white backdrop-blur-xl">
+        <div className="absolute bottom-0 left-0 right-0 z-10 border-y border-white/10 bg-black/25 py-3 text-white backdrop-blur-xl">
           <div className="flex animate-marquee whitespace-nowrap text-[11px] uppercase tracking-[0.32em] text-white/54">
             {Array.from({ length: 2 }).map((_, group) => (
               <div className="flex min-w-full justify-around gap-12" key={group}>
