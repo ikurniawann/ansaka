@@ -2,221 +2,199 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Building2, CreditCard, LogOut, Send, UsersRound } from "lucide-react";
+import { BarChart3, CreditCard, Plus, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { ensureUserProfile } from "@/lib/profiles";
 import { supabase, type UserProfile } from "@/lib/supabase-client";
 
-type DashboardState = {
-  profile: UserProfile | null;
-  organizationName: string | null;
-  batchCount: number;
-  responseCount: number;
+type BatchRow = {
+  id: string;
+  name: string | null;
+  status: string;
+  credits_allocated: number;
+  credits_used: number;
+  created_at: string;
+  unique_link_token: string;
 };
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [state, setState] = useState<DashboardState>({
-    profile: null,
-    organizationName: null,
-    batchCount: 0,
-    responseCount: 0,
-  });
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [orgName, setOrgName] = useState<string | null>(null);
+  const [recentBatches, setRecentBatches] = useState<BatchRow[]>([]);
+  const [totalResponses, setTotalResponses] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let mounted = true;
+    (async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) { router.replace("/login"); return; }
 
-    async function loadDashboard() {
-      setError(null);
+      const p = await ensureUserProfile(session.user);
+      if (!p) { router.replace("/login"); return; }
+      setProfile(p);
 
-      const {
-        data: { session },
-        error: sessionError,
-      } = await supabase.auth.getSession();
+      if (!p.organization_id) { setLoading(false); return; }
 
-      if (sessionError) {
-        setError(sessionError.message);
-        setIsLoading(false);
-        return;
-      }
-
-      if (!session) {
-        router.replace("/login");
-        return;
-      }
-
-      const profile = await ensureUserProfile(session.user);
-
-      if (!profile) {
-        setError("Profile workspace belum tersedia untuk akun ini.");
-        setIsLoading(false);
-        return;
-      }
-
-      const orgPromise = profile.organization_id
-        ? supabase
-            .from("organizations")
-            .select("name")
-            .eq("id", profile.organization_id)
-            .single()
-        : Promise.resolve({ data: null, error: null });
-
-      const batchPromise = profile.organization_id
-        ? supabase
-            .from("survey_batches")
-            .select("id", { count: "exact", head: true })
-            .eq("organization_id", profile.organization_id)
-        : Promise.resolve({ count: 0, error: null });
-
-      const responsePromise = supabase
-        .from("survey_responses")
-        .select("id", { count: "exact", head: true });
-
-      const [orgResult, batchResult, responseResult] = await Promise.all([
-        orgPromise,
-        batchPromise,
-        responsePromise,
+      const [orgRes, batchRes] = await Promise.all([
+        supabase.from("organizations").select("name").eq("id", p.organization_id).single(),
+        supabase
+          .from("survey_batches")
+          .select("id, name, status, credits_allocated, credits_used, created_at, unique_link_token")
+          .eq("organization_id", p.organization_id)
+          .order("created_at", { ascending: false })
+          .limit(5),
       ]);
 
-      if (!mounted) return;
+      setOrgName(orgRes.data?.name ?? null);
+      setRecentBatches((batchRes.data ?? []) as BatchRow[]);
 
-      setState({
-        profile,
-        organizationName: orgResult.data?.name ?? null,
-        batchCount: batchResult.count ?? 0,
-        responseCount: responseResult.count ?? 0,
-      });
-      setIsLoading(false);
-    }
+      // Count total responses from batch_results
+      if (batchRes.data && batchRes.data.length > 0) {
+        const { data: results } = await supabase
+          .from("batch_results")
+          .select("respondent_count")
+          .in("batch_id", batchRes.data.map((b: BatchRow) => b.id));
+        setTotalResponses(
+          (results ?? []).reduce((sum: number, r: { respondent_count: number }) => sum + (r.respondent_count ?? 0), 0),
+        );
+      }
 
-    loadDashboard();
-
-    return () => {
-      mounted = false;
-    };
+      setLoading(false);
+    })();
   }, [router]);
 
-  async function handleLogout() {
-    await supabase.auth.signOut();
-    router.replace("/login");
-    router.refresh();
+  const activeBatches = recentBatches.filter((b) => b.status === "active").length;
+
+  function statusBadge(status: string) {
+    if (status === "active")  return <Badge variant="success">Aktif</Badge>;
+    if (status === "closed")  return <Badge variant="muted">Selesai</Badge>;
+    return <Badge variant="outline">Draft</Badge>;
   }
 
-  if (isLoading) {
+  if (loading) {
     return (
-      <main className="grid min-h-screen place-items-center bg-background px-4 text-foreground">
-        <div className="rounded-[2rem] border border-border bg-card p-8 text-center shadow-ink-soft">
-          <div className="mx-auto mb-5 size-10 animate-pulse rounded-full bg-primary" />
-          <p className="text-sm uppercase tracking-[0.24em] text-muted-foreground">
-            Loading workspace
-          </p>
-        </div>
-      </main>
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
     );
   }
-
-  if (error) {
-    return (
-      <main className="grid min-h-screen place-items-center bg-background px-4 text-foreground">
-        <div className="max-w-lg rounded-[2rem] border border-destructive/30 bg-card p-8 shadow-ink-soft">
-          <p className="text-sm uppercase tracking-[0.24em] text-muted-foreground">
-            Dashboard error
-          </p>
-          <h1 className="mt-4 text-3xl font-semibold tracking-[-0.05em]">
-            Tidak bisa memuat workspace.
-          </h1>
-          <p className="mt-4 text-muted-foreground">{error}</p>
-          <Button asChild className="mt-6">
-            <Link href="/login">Back to login</Link>
-          </Button>
-        </div>
-      </main>
-    );
-  }
-
-  const profile = state.profile;
 
   return (
-    <main className="min-h-screen bg-background px-4 py-8 text-foreground sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <header className="flex flex-col gap-4 rounded-[2rem] border border-border bg-card/80 p-5 shadow-ink-soft backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between">
+    <div className="px-8 py-8">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">Dashboard</p>
+          <h1 className="mt-1 text-2xl font-semibold tracking-tight">
+            Selamat datang{profile?.full_name ? `, ${profile.full_name}` : ""}
+          </h1>
+          {orgName && <p className="mt-0.5 text-sm text-muted-foreground">{orgName}</p>}
+        </div>
+        <Button asChild>
+          <Link href="/dashboard/batches/new">
+            <Plus className="size-4" />
+            Batch Baru
+          </Link>
+        </Button>
+      </div>
+
+      {/* Stats */}
+      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+              <BarChart3 className="size-4" />
+              Total Batch
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-3xl font-bold">{recentBatches.length}</p>
+            <p className="text-xs text-muted-foreground">{activeBatches} sedang aktif</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+              <Users className="size-4" />
+              Total Responden
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-3xl font-bold">{totalResponses}</p>
+            <p className="text-xs text-muted-foreground">dari semua batch</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+              <CreditCard className="size-4" />
+              Saldo Kredit
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-3xl font-bold">{profile?.credit_balance ?? 0}</p>
+            <p className="text-xs text-muted-foreground">
+              <Link href="/dashboard/credits" className="underline underline-offset-2">
+                Lihat paket →
+              </Link>
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Recent batches */}
+      <div className="mt-8">
+        <div className="flex items-center justify-between">
+          <h2 className="text-base font-semibold">Batch Terbaru</h2>
           <Button asChild variant="ghost">
-            <Link href="/">
-              <ArrowLeft className="size-4" />
-              Home
-            </Link>
+            <Link href="/dashboard/batches">Lihat semua</Link>
           </Button>
-          <div className="flex items-center gap-3">
-            <Button asChild variant="outline">
-              <Link href="/dashboard">Dashboard</Link>
-            </Button>
-            <Button onClick={handleLogout} variant="default">
-              <LogOut className="size-4" />
-              Logout
+        </div>
+
+        {recentBatches.length === 0 ? (
+          <div className="mt-4 rounded-[1.5rem] border border-dashed border-border p-12 text-center">
+            <BarChart3 className="mx-auto size-10 text-muted-foreground/40" />
+            <p className="mt-4 text-sm font-medium">Belum ada batch survey</p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Buat batch pertama untuk mulai mengumpulkan data OAM.
+            </p>
+            <Button asChild className="mt-6">
+              <Link href="/dashboard/batches/new">
+                <Plus className="size-4" />
+                Buat Batch Pertama
+              </Link>
             </Button>
           </div>
-        </header>
-
-        <section className="grid gap-8 py-16 lg:grid-cols-[0.85fr_1.15fr]">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-              Diagnostic workspace
-            </p>
-            <h1 className="mt-5 text-5xl font-semibold leading-[0.95] tracking-[-0.06em] sm:text-7xl">
-              Welcome, {profile?.full_name || profile?.email || "Admin"}.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
-              Workspace ini sudah terhubung ke Supabase Auth. Dari sini nanti
-              kita bisa lanjutkan fitur batch survey, link assessment, dan
-              dashboard hasil agregat.
-            </p>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            {[
-              {
-                icon: Building2,
-                label: "Organization",
-                value: state.organizationName || "Not assigned",
-              },
-              {
-                icon: CreditCard,
-                label: "Credit balance",
-                value: `${profile?.credit_balance ?? 0}`,
-              },
-              {
-                icon: Send,
-                label: "Survey batches",
-                value: `${state.batchCount}`,
-              },
-              {
-                icon: UsersRound,
-                label: "Responses",
-                value: `${state.responseCount}`,
-              },
-            ].map((item) => (
-              <div
-                className="min-h-48 rounded-[1.5rem] border border-border bg-card p-6"
-                key={item.label}
+        ) : (
+          <div className="mt-4 divide-y divide-border rounded-[1.5rem] border border-border bg-card">
+            {recentBatches.map((batch) => (
+              <Link
+                key={batch.id}
+                href={`/dashboard/batches/${batch.id}`}
+                className="flex items-center justify-between px-6 py-4 transition-colors hover:bg-muted/50 first:rounded-t-[1.5rem] last:rounded-b-[1.5rem]"
               >
-                <div className="grid size-11 place-items-center rounded-full bg-foreground text-background">
-                  <item.icon className="size-5" />
+                <div>
+                  <p className="text-sm font-medium">{batch.name ?? "Batch tanpa nama"}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {new Date(batch.created_at).toLocaleDateString("id-ID", {
+                      day: "numeric", month: "long", year: "numeric",
+                    })}
+                    {" · "}
+                    {batch.credits_used} / {batch.credits_allocated} kredit terpakai
+                  </p>
                 </div>
-                <div className="mt-8 text-xs uppercase tracking-[0.24em] text-muted-foreground">
-                  {item.label}
-                </div>
-                <div className="mt-3 text-3xl font-semibold tracking-[-0.05em]">
-                  {item.value}
-                </div>
-              </div>
+                {statusBadge(batch.status)}
+              </Link>
             ))}
           </div>
-        </section>
+        )}
       </div>
-    </main>
+    </div>
   );
 }
