@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 42 28% 94%;
+    --foreground: 217 29% 10%;
+    --card: 42 28% 96%;
+    --card-foreground: 217 29% 10%;
+    --primary: 218 44% 13%;
+    --primary-foreground: 42 40% 96%;
+    --secondary: 202 40% 90%;
+    --secondary-foreground: 218 44% 13%;
+    --muted: 38 20% 88%;
+    --muted-foreground: 220 12% 38%;
+    --accent: 193 60% 56%;
+    --accent-foreground: 217 29% 10%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 217 17% 78%;
+    --input: 217 17% 78%;
+    --ring: 195 76% 60%;
+    --radius: 1.5rem;
+  }
+
+  .dark {
+    --background: 224 37% 5%;
+    --foreground: 42 40% 96%;
+    --card: 224 32% 8%;
+    --card-foreground: 42 40% 96%;
+    --primary: 191 81% 74%;
+    --primary-foreground: 222 47% 7%;
+    --secondary: 219 28% 14%;
+    --secondary-foreground: 42 40% 96%;
+    --muted: 219 28% 13%;
+    --muted-foreground: 220 12% 68%;
+    --accent: 38 82% 72%;
+    --accent-foreground: 222 47% 7%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 218 22% 18%;
+    --input: 218 22% 18%;
+    --ring: 191 81% 74%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    text-rendering: geometricPrecision;
+  }
+
+  ::selection {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

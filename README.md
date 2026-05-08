@@ -5,44 +5,34 @@ Phase 1 Foundation — full-stack scaffolding sesuai System Blueprint v1.0.
 
 ## Tech Stack
 
-- **Frontend:** React 18 + Vite + Tailwind CSS + React Router 6
-- **i18n:** react-i18next (Bahasa Indonesia / English)
-- **Charts:** Recharts (Radar, Bar, Gauge)
+- **Frontend:** Next.js 15 + React 19 + TypeScript
+- **Styling:** Tailwind CSS + shadcn/ui-style primitives + Aceternity-inspired motion components
+- **Motion:** Framer Motion parallax hero
+- **Theme:** `next-themes` dark/light mode
 - **Backend:** Supabase (PostgreSQL + Auth + RLS)
 
 ## Struktur Proyek
 
 ```
 Dev_Ansaka/
-├── app/                    # React + Vite SPA
+├── app/                    # Next.js 15 application
 │   ├── src/
-│   │   ├── lib/            # Core utilities
-│   │   │   ├── scoring.js          # OAM scoring engine (FP→Driver→Layer→Gap→Overall)
-│   │   │   ├── weightMap.js        # Q→FP weight map (default seed)
-│   │   │   ├── fpGapMap.js         # Locked OAM constants (12 D, 27 FP, 5 L, 6 G)
-│   │   │   ├── supabase.js         # Supabase client
-│   │   │   └── i18n.js             # i18next setup
-│   │   ├── i18n/                   # Translation files (id.json, en.json)
-│   │   ├── contexts/AuthContext.jsx
-│   │   ├── components/
-│   │   │   ├── shared/             # LoadingScreen, ScoreChip, MaturityBadge, layouts
-│   │   │   ├── survey/             # SurveyForm, DriverSection, LikertQuestion, etc.
-│   │   │   ├── dashboard/          # ExecutiveSummary, PriorityHeatmap, LayerView, etc.
-│   │   │   └── marketing/          # MarketingLayout
-│   │   ├── pages/
-│   │   │   ├── marketing/          # Home, Services, Insight, About, Contact
-│   │   │   ├── auth/               # Login, Register
-│   │   │   ├── dashboard/          # Overview, Batches, BatchDetail, Credits, Settings
-│   │   │   ├── admin/              # Overview, Organizations, Batches, Credits, Packages,
-│   │   │   │                       # Pricing, Formulas, Benchmark, CMS
-│   │   │   ├── Survey.jsx          # Public survey form (no login)
-│   │   │   └── ThankYou.jsx
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── index.html
+│   │   └── app/
+│   │       ├── layout.tsx          # App shell + theme provider
+│   │       ├── page.tsx            # Landing page
+│   │       └── globals.css         # Design tokens and Tailwind layers
+│   ├── components/
+│   │   ├── aceternity/             # Motion/background inspired components
+│   │   ├── ui/                     # shadcn/ui-style primitives
+│   │   ├── hero-parallax.tsx
+│   │   ├── site-header.tsx
+│   │   └── theme-toggle.tsx
+│   ├── lib/
+│   │   └── utils.ts
 │   ├── package.json
-│   ├── vite.config.js
-│   ├── tailwind.config.js
+│   ├── next.config.ts
+│   ├── tailwind.config.ts
+│   ├── tsconfig.json
 │   └── .env.example
 ├── supabase/
 │   └── migrations/
@@ -73,14 +63,15 @@ cd app
 cp .env.example .env
 ```
 
-Isi `VITE_SUPABASE_URL` dan `VITE_SUPABASE_ANON_KEY` dari Supabase Dashboard → Settings → API.
+Isi `NEXT_PUBLIC_SUPABASE_URL` dan `NEXT_PUBLIC_SUPABASE_ANON_KEY` dari Supabase Dashboard → Settings → API.
 
 ### 3. Install & jalankan
 
 ```bash
-npm install
-npm run dev          # development at http://localhost:5173
-npm run build        # production build → dist/
+npm install next@15 react@19 react-dom@19 @radix-ui/react-slot class-variance-authority clsx framer-motion lucide-react next-themes tailwind-merge @supabase/supabase-js
+npm install -D typescript @types/node @types/react @types/react-dom tailwindcss postcss autoprefixer eslint eslint-config-next tailwindcss-animate
+npm run dev          # development at http://localhost:3000
+npm run build        # production build → .next/
 ```
 
 ### 4. Buat Super Admin pertama
@@ -95,40 +86,10 @@ update public.users
 
 ## Routes
 
-### Public
+### Current Next.js app
 | Route | Akses | Keterangan |
 |-------|-------|------------|
-| `/` | Public | Landing page (marketing) |
-| `/services` | Public | Services |
-| `/insight` | Public | Blog (Business Insight) |
-| `/about` | Public | About Us |
-| `/contact` | Public | Contact form |
-| `/login` | Public | Login Corporate Admin |
-| `/register` | Public | Register new client |
-| `/survey/:token` | Public | Survey form (anonim, no login) |
-| `/survey/:token/thankyou` | Public | Confirmation page |
-
-### Corporate Admin (login required)
-| Route | Keterangan |
-|-------|------------|
-| `/dashboard` | Overview (kredit, batches, transactions) |
-| `/dashboard/batches` | Kelola survei batch + generate link |
-| `/dashboard/batch/:id` | Hasil diagnostik (6 sections) |
-| `/dashboard/credits` | Kelola kredit + paket pembelian |
-| `/dashboard/settings` | Profil organisasi |
-
-### Super Admin (role check required)
-| Route | Keterangan |
-|-------|------------|
-| `/admin` | Platform overview |
-| `/admin/organizations` | Daftar semua organisasi |
-| `/admin/batches` | Semua survey batches |
-| `/admin/credits` | Global credit transactions |
-| `/admin/packages` | Edit credit packages |
-| `/admin/pricing` | **Pricing tier editor** (free + paid scheme) |
-| `/admin/formulas` | **OAM formula editor** (Q→FP weights, thresholds) |
-| `/admin/benchmark` | Industry benchmark scores |
-| `/admin/cms` | Content management (pages + blog posts) |
+| `/` | Public | Premium landing page dengan smooth parallax hero |
 
 ## OAM Framework (locked constants)
 
