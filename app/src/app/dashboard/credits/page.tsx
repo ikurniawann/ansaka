@@ -224,7 +224,7 @@ export default function CreditsPage() {
                       Membuat invoice...
                     </>
                   ) : (
-                    "Beli via Xendit Sandbox"
+                    "Beli Sekarang"
                   )}
                 </Button>
               </CardContent>
