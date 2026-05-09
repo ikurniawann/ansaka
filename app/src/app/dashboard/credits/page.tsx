@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
@@ -26,6 +27,9 @@ type CreditTx = {
   type: string;
   amount: number;
   notes: string | null;
+  payment_provider: string | null;
+  payment_status: string;
+  checkout_url: string | null;
   created_at: string;
 };
 
@@ -40,9 +44,20 @@ export default function CreditsPage() {
   const [transactions, setTransactions] = useState<CreditTx[]>([]);
   const [orgId, setOrgId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [checkoutPackageId, setCheckoutPackageId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
+      const paymentResult = new URLSearchParams(window.location.search).get("payment");
+      if (paymentResult === "success") {
+        setNotice("Pembayaran sedang diverifikasi. Saldo akan bertambah otomatis setelah callback Xendit masuk.");
+      }
+      if (paymentResult === "failed") {
+        setError("Pembayaran dibatalkan atau gagal. Silakan coba lagi.");
+      }
+
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) { router.replace("/login"); return; }
 
@@ -64,7 +79,7 @@ export default function CreditsPage() {
           .order("sort_order"),
         supabase
           .from("credit_transactions")
-          .select("id, type, amount, notes, created_at")
+          .select("id, type, amount, notes, payment_provider, payment_status, checkout_url, created_at")
           .eq("organization_id", profile.organization_id)
           .order("created_at", { ascending: false })
           .limit(20),
@@ -84,6 +99,51 @@ export default function CreditsPage() {
     return <Badge variant="outline">{amount > 0 ? "+" : ""}{amount}</Badge>;
   }
 
+  function paymentStatusBadge(status: string) {
+    if (status === "paid" || status === "completed") return <Badge variant="success">Paid</Badge>;
+    if (status === "pending") return <Badge variant="warning">Pending</Badge>;
+    if (status === "expired") return <Badge variant="muted">Expired</Badge>;
+    if (status === "failed") return <Badge variant="danger">Failed</Badge>;
+    return <Badge variant="outline">{status}</Badge>;
+  }
+
+  async function startXenditCheckout(packageId: string) {
+    setError(null);
+    setNotice(null);
+    setCheckoutPackageId(packageId);
+
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        router.replace("/login");
+        return;
+      }
+
+      const response = await fetch("/api/payments/xendit/create-invoice", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ packageId }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error ?? "Gagal membuat invoice Xendit.");
+      }
+
+      window.location.href = result.invoiceUrl;
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "Terjadi kesalahan.");
+      setCheckoutPackageId(null);
+    }
+  }
+
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -96,6 +156,18 @@ export default function CreditsPage() {
     <div className="px-8 py-8">
       <p className="text-xs uppercase tracking-widest text-muted-foreground">Manajemen Kredit</p>
       <h1 className="mt-1 text-2xl font-semibold tracking-tight">Kredit & Paket</h1>
+
+      {notice ? (
+        <Alert className="mt-4 max-w-3xl" variant="success">
+          <AlertDescription>{notice}</AlertDescription>
+        </Alert>
+      ) : null}
+
+      {error ? (
+        <Alert className="mt-4 max-w-3xl" variant="destructive">
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      ) : null}
 
       {/* Balance */}
       <div className="mt-6 flex items-center gap-4 rounded-[1.5rem] border border-border bg-card p-6">
@@ -115,11 +187,8 @@ export default function CreditsPage() {
       <div className="mt-8">
         <h2 className="text-base font-semibold">Paket Kredit Tersedia</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Untuk pembelian kredit, hubungi tim ANSAKA di{" "}
-          <a href="mailto:hello@ansaka.id" className="font-medium underline underline-offset-2">
-            hello@ansaka.id
-          </a>
-          . Tim kami akan memproses dan menambahkan kredit ke akun Anda.
+          Pembayaran sandbox memakai Xendit development mode. Tidak ada tagihan real selama
+          kredensial Xendit masih development.
         </p>
 
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -144,11 +213,19 @@ export default function CreditsPage() {
                   {formatRupiah(Math.round(pkg.price_idr / pkg.credits))}/kredit
                 </p>
                 <Button
-                  variant="outline"
+                  variant="default"
                   className="mt-4 w-full"
-                  onClick={() => window.open("mailto:hello@ansaka.id?subject=Pembelian Kredit " + pkg.name, "_blank")}
+                  disabled={checkoutPackageId === pkg.id}
+                  onClick={() => startXenditCheckout(pkg.id)}
                 >
-                  Hubungi Kami
+                  {checkoutPackageId === pkg.id ? (
+                    <>
+                      <Loader2 className="size-4 animate-spin" />
+                      Membuat invoice...
+                    </>
+                  ) : (
+                    "Beli via Xendit Sandbox"
+                  )}
                 </Button>
               </CardContent>
             </Card>
@@ -169,6 +246,7 @@ export default function CreditsPage() {
                   <TableHead>Tanggal</TableHead>
                   <TableHead>Tipe</TableHead>
                   <TableHead>Jumlah</TableHead>
+                  <TableHead>Status</TableHead>
                   <TableHead>Keterangan</TableHead>
                 </TableRow>
               </TableHeader>
@@ -185,6 +263,21 @@ export default function CreditsPage() {
                       <span className="capitalize text-sm">{tx.type}</span>
                     </TableCell>
                     <TableCell>{txTypeBadge(tx.type, tx.amount)}</TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        {paymentStatusBadge(tx.payment_status)}
+                        {tx.checkout_url && tx.payment_status === "pending" ? (
+                          <a
+                            className="text-xs font-medium underline underline-offset-2"
+                            href={tx.checkout_url}
+                            rel="noreferrer"
+                            target="_blank"
+                          >
+                            Bayar
+                          </a>
+                        ) : null}
+                      </div>
+                    </TableCell>
                     <TableCell className="text-xs text-muted-foreground max-w-xs truncate">
                       {tx.notes ?? "-"}
                     </TableCell>
