@@ -43,3 +43,5 @@ app/screenshot*.js
 app/create-pdf.js
 app/screenshot-*.png
 app/vite.config.js.timestamp-*
+.vercel
+**/.vercel
