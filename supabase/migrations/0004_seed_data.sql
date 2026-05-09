@@ -13,7 +13,12 @@ values
   ('Growth',     50,  4500000, 'Departemen menengah',             2),
   ('Business',  100,  8500000, 'Perusahaan menengah',             3),
   ('Enterprise', 500, 35000000, 'Korporasi besar / multi-divisi', 4)
-on conflict do nothing;
+on conflict (name) do update
+  set credits = excluded.credits,
+      price_idr = excluded.price_idr,
+      description = excluded.description,
+      sort_order = excluded.sort_order,
+      is_active = true;
 
 -- =============================================================================
 -- DEFAULT PRICING TIER (free 30 + paid above)
