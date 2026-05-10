@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   BarChart3, BookOpen, Building2, CreditCard, FileText,
-  Layers, LogOut, Shield, Users,
+  Layers, LogOut, ReceiptText, Shield, Users,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -16,6 +16,8 @@ import { cn } from "@/lib/utils";
 
 const adminNav = [
   { href: "/admin",             label: "Overview",       icon: BarChart3  },
+  { href: "/admin/organizations", label: "Organizations", icon: Building2 },
+  { href: "/admin/transactions",  label: "Transactions",  icon: ReceiptText },
   { href: "/admin/users",       label: "Users",          icon: Users      },
   { href: "/admin/credits",     label: "Credits",        icon: CreditCard },
   { href: "/admin/pricing",     label: "Pricing Tiers",  icon: Layers     },
