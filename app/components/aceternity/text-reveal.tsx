@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
@@ -14,15 +14,27 @@ export function TextReveal({
   delay?: number;
 }) {
   const words = children.split(" ");
+  const reduce = useReducedMotion();
+
+  // If the user prefers reduced motion (or framer-motion fails to fire `animate`
+  // in dev/strict-mode), we render words at their resting position immediately
+  // so the headline is never invisible.
+  if (reduce) {
+    return <span className={cn("inline-flex flex-wrap", className)}>{children}</span>;
+  }
 
   return (
     <span className={cn("inline-flex flex-wrap", className)}>
       {words.map((word, index) => (
-        <span className="mr-[0.22em] overflow-hidden pb-[0.04em]" key={`${word}-${index}`}>
+        <span
+          className="mr-[0.22em] overflow-hidden pb-[0.04em]"
+          key={`${word}-${index}`}
+        >
           <motion.span
-            className="inline-block"
+            className="inline-block will-change-transform"
             initial={{ y: "105%" }}
-            animate={{ y: 0 }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true, margin: "0px 0px -10% 0px" }}
             transition={{
               duration: 0.9,
               delay: delay + index * 0.045,

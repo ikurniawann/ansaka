@@ -148,28 +148,28 @@ export function AuthShell({ mode }: AuthShellProps) {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/30 to-transparent" />
       </div>
 
-      <section className="mx-auto grid min-h-screen max-w-7xl items-center gap-10 px-4 pb-28 pt-36 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
+      <section className="mx-auto grid min-h-screen max-w-6xl items-center gap-8 px-4 pb-20 pt-32 sm:px-6 lg:grid-cols-[0.92fr_1.02fr] lg:px-8">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
             {content.eyebrow}
           </p>
-          <h1 className="mt-6 max-w-3xl text-5xl font-semibold leading-[0.92] tracking-[-0.065em] sm:text-7xl lg:text-8xl">
+          <h1 className="mt-5 max-w-2xl text-4xl font-semibold leading-[0.96] tracking-[-0.045em] sm:text-6xl lg:text-7xl">
             {content.title}
           </h1>
-          <p className="mt-8 max-w-xl text-lg leading-8 text-muted-foreground">
+          <p className="mt-6 max-w-lg text-base leading-7 text-muted-foreground">
             {content.body}
           </p>
 
           {isSignup ? (
-            <div className="mt-10 max-w-xl rounded-[1.5rem] border border-amber-400/40 bg-amber-50/80 p-5 text-amber-900 shadow-ink-soft dark:bg-amber-500/10 dark:text-amber-200">
-              <div className="flex items-center gap-3 text-xs uppercase tracking-[0.22em]">
+            <div className="mt-8 max-w-lg rounded-[1.25rem] border border-amber-400/40 bg-amber-50/80 p-4 text-amber-900 shadow-ink-soft dark:bg-amber-500/10 dark:text-amber-200">
+              <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.22em]">
                 <Sparkles className="size-4" aria-hidden />
                 Welcome bonus
               </div>
-              <div className="mt-3 text-2xl font-semibold tracking-[-0.03em]">
+              <div className="mt-3 text-xl font-semibold tracking-[-0.03em]">
                 30 credit gratis = 30 link survey
               </div>
-              <ul className="mt-4 space-y-2 text-sm leading-6">
+              <ul className="mt-3 space-y-1.5 text-[13px] leading-6">
                 {[
                   "Otomatis tercatat di credit balance saat workspace aktif.",
                   "Cukup untuk pilot batch sampai 30 responden.",
@@ -183,45 +183,45 @@ export function AuthShell({ mode }: AuthShellProps) {
               </ul>
             </div>
           ) : (
-            <div className="mt-10 grid max-w-xl gap-3 sm:grid-cols-3">
+            <div className="mt-8 grid max-w-lg gap-3 sm:grid-cols-3">
               {["RLS protected", "Batch survey", "Aggregate insight"].map((item) => (
-                <div className="rounded-[1.25rem] border border-border bg-card/70 p-4" key={item}>
-                  <div className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                <div className="rounded-[1rem] border border-border bg-card/70 p-3.5" key={item}>
+                  <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                     Portal
                   </div>
-                  <div className="mt-4 text-sm font-medium">{item}</div>
+                  <div className="mt-3 text-[13px] font-medium">{item}</div>
                 </div>
               ))}
             </div>
           )}
         </div>
 
-        <div className="rounded-[2rem] border border-border bg-card/80 p-4 shadow-ink-soft backdrop-blur-2xl sm:p-7 lg:min-w-[600px]">
-          <div className="rounded-[1.5rem] border border-border bg-background/65 p-6 sm:p-10">
+        <div className="rounded-[1.5rem] border border-border bg-card/80 p-3 shadow-ink-soft backdrop-blur-2xl sm:p-5 lg:min-w-[520px]">
+          <div className="rounded-[1.25rem] border border-border bg-background/65 p-5 sm:p-8">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs uppercase tracking-[0.28em] text-muted-foreground">
+                <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                   {isSignup ? "Sign up" : "Login"}
                 </p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.05em]">
+                <h2 className="mt-2 text-2xl font-semibold tracking-[-0.04em]">
                   {isSignup ? "Create your account" : "Welcome back"}
                 </h2>
               </div>
-              <div className="grid size-12 place-items-center rounded-full bg-foreground text-background">
+              <div className="grid size-10 place-items-center rounded-full bg-foreground text-background">
                 {isSignup ? <UserRound className="size-5" /> : <LockKeyhole className="size-5" />}
               </div>
             </div>
 
-            <form className="mt-10 space-y-6" onSubmit={handleSubmit}>
+            <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
               {isSignup ? (
                 <label className="block">
-                  <span className="text-base font-medium text-muted-foreground">
+                  <span className="text-sm font-medium text-muted-foreground">
                     Organization name
                   </span>
-                  <div className="mt-3 flex min-h-14 items-center gap-3 rounded-full border border-border/70 bg-background px-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors focus-within:border-primary/70 focus-within:ring-2 focus-within:ring-primary/20">
-                    <Building2 className="size-5 shrink-0 text-muted-foreground" />
+                  <div className="mt-2.5 flex min-h-12 items-center gap-3 rounded-full border border-border/70 bg-background px-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors focus-within:border-primary/70 focus-within:ring-2 focus-within:ring-primary/20">
+                    <Building2 className="size-4 shrink-0 text-muted-foreground" />
                     <input
-                      className="h-14 w-full bg-transparent text-base outline-none placeholder:text-muted-foreground"
+                      className="h-12 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
                       onChange={(event) => setOrganizationName(event.target.value)}
                       placeholder="PT Ansaka Indonesia"
                       type="text"
@@ -232,13 +232,13 @@ export function AuthShell({ mode }: AuthShellProps) {
               ) : null}
 
               <label className="block">
-                <span className="text-base font-medium text-muted-foreground">
+                <span className="text-sm font-medium text-muted-foreground">
                   Work email
                 </span>
-                <div className="mt-3 flex min-h-14 items-center gap-3 rounded-full border border-border/70 bg-background px-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors focus-within:border-primary/70 focus-within:ring-2 focus-within:ring-primary/20">
-                  <Mail className="size-5 shrink-0 text-muted-foreground" />
+                <div className="mt-2.5 flex min-h-12 items-center gap-3 rounded-full border border-border/70 bg-background px-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors focus-within:border-primary/70 focus-within:ring-2 focus-within:ring-primary/20">
+                  <Mail className="size-4 shrink-0 text-muted-foreground" />
                   <input
-                    className="h-14 w-full bg-transparent text-base outline-none placeholder:text-muted-foreground"
+                    className="h-12 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
                     onChange={(event) => setEmail(event.target.value)}
                     placeholder="you@company.com"
                     type="email"
@@ -248,13 +248,13 @@ export function AuthShell({ mode }: AuthShellProps) {
               </label>
 
               <label className="block">
-                <span className="text-base font-medium text-muted-foreground">
+                <span className="text-sm font-medium text-muted-foreground">
                   Password
                 </span>
-                <div className="mt-3 flex min-h-14 items-center gap-3 rounded-full border border-border/70 bg-background px-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors focus-within:border-primary/70 focus-within:ring-2 focus-within:ring-primary/20">
-                  <LockKeyhole className="size-5 shrink-0 text-muted-foreground" />
+                <div className="mt-2.5 flex min-h-12 items-center gap-3 rounded-full border border-border/70 bg-background px-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors focus-within:border-primary/70 focus-within:ring-2 focus-within:ring-primary/20">
+                  <LockKeyhole className="size-4 shrink-0 text-muted-foreground" />
                   <input
-                    className="h-14 w-full bg-transparent text-base outline-none placeholder:text-muted-foreground"
+                    className="h-12 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
                     onChange={(event) => setPassword(event.target.value)}
                     placeholder="Minimum 8 characters"
                     type="password"
@@ -264,19 +264,19 @@ export function AuthShell({ mode }: AuthShellProps) {
               </label>
 
               {isSignup ? (
-                <label className="flex gap-4 rounded-[1.25rem] border border-border bg-muted/40 p-5 text-base leading-7 text-muted-foreground">
+                <label className="flex gap-3 rounded-[1rem] border border-border bg-muted/40 p-4 text-sm leading-6 text-muted-foreground">
                   <input
                     checked={agreed}
-                    className="mt-1 size-5 accent-foreground"
+                    className="mt-1 size-4 accent-foreground"
                     onChange={(event) => setAgreed(event.target.checked)}
                     type="checkbox"
                   />
                   I agree to create an ANSAKA workspace for my organization and receive onboarding instructions.
                 </label>
               ) : (
-                <div className="flex items-center justify-between text-base text-muted-foreground">
+                <div className="flex items-center justify-between text-sm text-muted-foreground">
                   <label className="flex items-center gap-3">
-                    <input className="size-5 accent-foreground" type="checkbox" />
+                    <input className="size-4 accent-foreground" type="checkbox" />
                     Remember me
                   </label>
                   <a className="font-medium text-foreground hover:underline" href="mailto:support@ansaka.id">
@@ -298,7 +298,7 @@ export function AuthShell({ mode }: AuthShellProps) {
               ) : null}
 
               <Button
-                className="h-12 w-full justify-between px-5 text-base"
+                className="h-11 w-full justify-between px-5 text-sm"
                 disabled={isSubmitting}
                 type="submit"
               >
@@ -307,7 +307,7 @@ export function AuthShell({ mode }: AuthShellProps) {
               </Button>
             </form>
 
-            <div className="mt-8 flex flex-col gap-3 border-t border-border pt-7 text-base text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+            <div className="mt-7 flex flex-col gap-3 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
               <span>{content.switchText}</span>
               <Link className="font-medium text-foreground hover:underline" href={content.switchHref}>
                 {content.switchAction}

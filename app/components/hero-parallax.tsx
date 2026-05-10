@@ -52,7 +52,6 @@ export function HeroParallax() {
   const imageY = useTransform(smoothProgress, [0, 1], ["0%", "14%"]);
   const imageScale = useTransform(smoothProgress, [0, 1], [1.04, 1.12]);
   const contentY = useTransform(smoothProgress, [0, 1], ["0%", "-12%"]);
-  const opacity = useTransform(smoothProgress, [0, 0.78], [1, 0]);
   const ringY = useTransform(smoothProgress, [0, 1], ["0%", "-22%"]);
   const panelY = useTransform(smoothProgress, [0, 1], ["0%", "-8%"]);
 
@@ -87,13 +86,14 @@ export function HeroParallax() {
         <div className="relative z-10 flex min-h-screen items-center px-4 pb-18 pt-32 sm:px-6 lg:px-8">
           <motion.div
             className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[minmax(0,1fr)_330px] xl:grid-cols-[minmax(0,1fr)_370px] lg:items-center"
-            style={{ y: contentY, opacity }}
+            style={{ y: contentY }}
           >
             <div className="max-w-3xl">
               <motion.div
                 className="mb-4 flex w-fit items-center gap-3 rounded-full border border-white/15 bg-black/30 px-3 py-2 text-[10px] uppercase tracking-widest text-white/75 backdrop-blur-2xl"
                 initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "0px" }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
               >
                 <span className="size-2 rounded-full bg-cyan-200 shadow-[0_0_22px_rgba(103,232,249,0.9)]" />
@@ -103,7 +103,8 @@ export function HeroParallax() {
               <motion.div
                 className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-amber-200/40 bg-amber-200/15 px-4 py-2 text-[11px] font-semibold uppercase tracking-widest text-amber-100 backdrop-blur-2xl"
                 initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "0px" }}
                 transition={{ duration: 0.7, delay: 0.16, ease: "easeOut" }}
               >
                 <Sparkles className="size-3.5 shrink-0" aria-hidden />
@@ -120,7 +121,8 @@ export function HeroParallax() {
               <motion.p
                 className="mt-6 max-w-xl text-base leading-7 text-white/82 lg:text-[1.05rem]"
                 initial={{ opacity: 0, y: 22 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "0px" }}
                 transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
               >
                 ANSAKA membantu eksekutif membaca sinyal leadership, ritme
@@ -131,7 +133,8 @@ export function HeroParallax() {
               <motion.div
                 className="mt-7 flex flex-wrap items-center gap-3"
                 initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "0px" }}
                 transition={{ duration: 0.75, delay: 0.66, ease: "easeOut" }}
               >
                 <Button asChild size="lg">
@@ -156,7 +159,8 @@ export function HeroParallax() {
               <motion.div
                 className="mt-4 flex flex-wrap items-center gap-3"
                 initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "0px" }}
                 transition={{ duration: 0.75, delay: 0.76, ease: "easeOut" }}
               >
                 <Button
@@ -187,7 +191,8 @@ export function HeroParallax() {
               className="relative hidden rounded-[1.5rem] border border-white/16 bg-black/34 p-4 text-white shadow-ink-soft backdrop-blur-2xl lg:block"
               style={{ y: panelY }}
               initial={{ opacity: 0, x: 28 }}
-              animate={{ opacity: 1, x: 0 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "0px" }}
               transition={{ duration: 0.85, delay: 0.58, ease: "easeOut" }}
             >
               <div className="mb-4 flex items-center justify-between">
