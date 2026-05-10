@@ -13,12 +13,12 @@ export type SiteHeaderProps = {
   hidePromo?: boolean;
 };
 
-const navItems: Array<{ index: string; label: string; href: string }> = [
-  { index: "I.", label: "How it works", href: "/#how-it-works" },
-  { index: "II.", label: "Method", href: "/#method" },
-  { index: "III.", label: "Pricing", href: "/#pricing" },
-  { index: "IV.", label: "Cases", href: "/#cases" },
-  { index: "V.", label: "FAQ", href: "/#faq" },
+const navItems: Array<{ label: string; href: string }> = [
+  { label: "How it works", href: "/#how-it-works" },
+  { label: "Method", href: "/#method" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "Cases", href: "/#cases" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
@@ -62,13 +62,10 @@ export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
           <nav className="hidden items-center gap-5 text-xs uppercase tracking-[0.22em] text-foreground/70 xl:flex">
             {navItems.map((item) => (
               <Link
-                className="group flex items-center gap-2 transition-colors hover:text-foreground"
+                className="group transition-colors hover:text-foreground"
                 href={item.href}
                 key={item.label}
               >
-                <span className="font-mono text-[10px] text-foreground/55">
-                  {item.index}
-                </span>
                 {item.label}
               </Link>
             ))}
@@ -121,12 +118,7 @@ export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
               >
-                <span className="flex items-center gap-3">
-                  <span className="font-mono text-[10px] text-foreground/40">
-                    {item.index}
-                  </span>
-                  {item.label}
-                </span>
+                {item.label}
                 <ArrowRight className="size-4 text-foreground/40" />
               </Link>
             ))}
