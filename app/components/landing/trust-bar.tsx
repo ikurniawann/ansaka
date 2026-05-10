@@ -11,9 +11,21 @@ const stats = [
 ];
 
 const logos = [
-  "ASTRA", "TELKOM", "BANK MEGA", "INDOFOOD", "PERTAMINA",
-  "SINAR MAS", "WIJAYA KARYA", "MAYORA", "ADARO", "GUDANG GARAM",
-  "BCA", "BRI", "JAPFA", "KALBE", "AKR",
+  { name: "Astra", src: "https://logo.clearbit.com/astra.co.id" },
+  { name: "Telkom Indonesia", src: "https://logo.clearbit.com/telkom.co.id" },
+  { name: "Bank Mega", src: "https://logo.clearbit.com/bankmega.com" },
+  { name: "Indofood", src: "https://logo.clearbit.com/indofood.com" },
+  { name: "Pertamina", src: "https://logo.clearbit.com/pertamina.com" },
+  { name: "Sinar Mas", src: "https://logo.clearbit.com/sinarmas.com" },
+  { name: "Wijaya Karya", src: "https://logo.clearbit.com/wika.co.id" },
+  { name: "Mayora", src: "https://logo.clearbit.com/mayoraindah.co.id" },
+  { name: "Adaro", src: "https://logo.clearbit.com/adaro.com" },
+  { name: "Gudang Garam", src: "https://logo.clearbit.com/gudanggaramtbk.com" },
+  { name: "BCA", src: "https://logo.clearbit.com/bca.co.id" },
+  { name: "BRI", src: "https://logo.clearbit.com/bri.co.id" },
+  { name: "JAPFA", src: "https://logo.clearbit.com/japfacomfeed.co.id" },
+  { name: "Kalbe", src: "https://logo.clearbit.com/kalbe.co.id" },
+  { name: "AKR", src: "https://logo.clearbit.com/akr.co.id" },
 ];
 
 export function TrustBar() {
@@ -30,7 +42,7 @@ export function TrustBar() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
             {stats.map((s, idx) => (
               <StatCard key={s.label} stat={s} delay={idx * 0.08} />
             ))}
@@ -38,15 +50,20 @@ export function TrustBar() {
         </div>
 
         <div className="mt-14 overflow-hidden rounded-[1.5rem] border border-border bg-card py-6">
-          <div className="flex animate-marquee whitespace-nowrap text-sm font-semibold tracking-[0.32em] text-foreground/55">
+          <div className="flex w-max animate-marquee items-center whitespace-nowrap">
             {Array.from({ length: 2 }).map((_, group) => (
-              <div className="flex min-w-full items-center justify-around gap-12" key={group}>
-                {logos.map((l) => (
+              <div className="flex shrink-0 items-center gap-16 px-10" key={group}>
+                {logos.map((logo) => (
                   <span
-                    key={`${group}-${l}`}
-                    className="grayscale transition-all hover:text-foreground"
+                    key={`${group}-${logo.name}`}
+                    className="grid h-12 w-32 shrink-0 place-items-center rounded-xl bg-white/70 px-5 ring-1 ring-border/60 transition-all hover:bg-white"
                   >
-                    {l}
+                    <img
+                      src={logo.src}
+                      alt={`${logo.name} logo`}
+                      className="max-h-7 max-w-full object-contain opacity-65 grayscale transition-all hover:opacity-100 hover:grayscale-0"
+                      loading="lazy"
+                    />
                   </span>
                 ))}
               </div>
@@ -94,9 +111,9 @@ function StatCard({
       initial={{ opacity: 0, y: 16 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay }}
-      className="rounded-[1.5rem] border border-border bg-card p-5"
+      className="min-w-0 rounded-[1.5rem] border border-border bg-card p-5"
     >
-      <div className="text-4xl font-semibold tracking-[-0.05em] text-foreground tabular-nums sm:text-5xl">
+      <div className="whitespace-nowrap text-[2.4rem] font-semibold leading-none tracking-normal text-foreground tabular-nums sm:text-[2.65rem] 2xl:text-[3rem]">
         {count.toLocaleString("id-ID")}
         <span className="text-foreground/60">{stat.suffix}</span>
       </div>

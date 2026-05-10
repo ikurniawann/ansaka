@@ -259,15 +259,15 @@ export function HeroParallax() {
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 z-10 border-y border-white/10 bg-black/32 py-3 text-white backdrop-blur-xl">
-          <div className="flex animate-marquee whitespace-nowrap text-[11px] uppercase tracking-widest text-white/55">
+          <div className="flex w-max animate-marquee whitespace-nowrap text-[11px] uppercase tracking-widest text-white/55">
             {Array.from({ length: 2 }).map((_, group) => (
-              <div className="flex min-w-full justify-around gap-12" key={group}>
-                <span>Strategy</span>
-                <span>Leadership</span>
-                <span>Management cascade</span>
-                <span>Team execution</span>
-                <span>Capability fit</span>
-                <span>Culture energy</span>
+              <div className="flex shrink-0 items-center gap-16 px-8" key={group}>
+                <span className="shrink-0">Strategy</span>
+                <span className="shrink-0">Leadership</span>
+                <span className="shrink-0">Management cascade</span>
+                <span className="shrink-0">Team execution</span>
+                <span className="shrink-0">Capability fit</span>
+                <span className="shrink-0">Culture energy</span>
               </div>
             ))}
           </div>
