@@ -48,6 +48,14 @@ function getErrorMessage(caught: unknown) {
   return "Terjadi kesalahan. Coba ulang beberapa saat lagi.";
 }
 
+function getAuthRedirectUrl() {
+  const appUrl =
+    process.env.NEXT_PUBLIC_APP_URL ??
+    (typeof window !== "undefined" ? window.location.origin : "");
+
+  return `${appUrl.replace(/\/$/, "")}/login`;
+}
+
 export function AuthShell({ mode }: AuthShellProps) {
   const content = copy[mode];
   const isSignup = mode === "signup";
@@ -93,6 +101,7 @@ export function AuthShell({ mode }: AuthShellProps) {
           email,
           password,
           options: {
+            emailRedirectTo: getAuthRedirectUrl(),
             data: {
               organization_name: organizationName.trim(),
               role: "corporate_admin",
