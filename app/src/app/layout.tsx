@@ -5,16 +5,16 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://ansaka.id";
+  process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? "https://ansaka.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "ANSAKA OAM Insight — Diagnostik Organisasi untuk Eksekutif",
+    default: "ANSAKA OAM Insight | Platform Diagnostik Organisasi & Survey OAM",
     template: "%s · ANSAKA OAM Insight",
   },
   description:
-    "Platform diagnostik organisasi premium berbasis OAM Framework: 5 layer × 12 driver × 27 failure point. Ubah noise survey menjadi peta eksekusi untuk leadership Indonesia. Daftar sekarang dan dapatkan 30 credit gratis.",
+    "ANSAKA OAM Insight adalah platform diagnostik organisasi berbasis OAM Framework untuk survey leadership alignment, execution gap, culture signal, dan laporan prioritas eksekutif.",
   keywords: [
     "assessment perusahaan",
     "survey karyawan",
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
     locale: "id_ID",
     url: SITE_URL,
     siteName: "ANSAKA OAM Insight",
-    title: "ANSAKA OAM Insight — Diagnostik Organisasi untuk Eksekutif",
+    title: "ANSAKA OAM Insight | Platform Diagnostik Organisasi",
     description:
-      "Diagnostik organisasi berbasis OAM Framework. Daftar workspace baru sekarang dan dapatkan 30 credit gratis untuk 30 link survey pertama Anda.",
+      "Platform survey dan diagnostic report berbasis OAM Framework untuk membaca leadership alignment, execution gap, dan culture signal.",
     images: [
       {
         url: "/og-cover.png",
@@ -59,9 +59,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ANSAKA OAM Insight — Diagnostik Organisasi",
+    title: "ANSAKA OAM Insight | Platform Diagnostik Organisasi",
     description:
-      "Ubah noise survey menjadi peta eksekusi. 30 credit gratis untuk workspace baru.",
+      "Ubah noise survey menjadi peta eksekusi berbasis OAM Framework.",
     images: ["/og-cover.png"],
   },
   robots: {
@@ -120,6 +120,27 @@ export default function RootLayout({
                   availableLanguage: ["Indonesian", "English"],
                 },
               ],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              name: "ANSAKA OAM Insight",
+              applicationCategory: "BusinessApplication",
+              operatingSystem: "Web",
+              url: SITE_URL,
+              description:
+                "Platform diagnostik organisasi untuk survey OAM, leadership alignment, execution gap, dan report eksekutif.",
+              offers: {
+                "@type": "Offer",
+                price: "0",
+                priceCurrency: "IDR",
+                description: "Workspace baru mendapatkan 30 credit gratis.",
+              },
             }),
           }}
         />

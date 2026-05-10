@@ -202,9 +202,11 @@ export default function ResultsPage() {
           </p>
         </div>
         <div className="flex items-center gap-2 print-hidden">
-          <Button variant="outline" size="default" onClick={() => window.print()}>
-            <Download className="size-4" />
-            Export PDF
+          <Button asChild variant="outline" size="default">
+            <Link href={`/reports/${id}/print`} target="_blank">
+              <Download className="size-4" />
+              Export PDF
+            </Link>
           </Button>
           <Button variant="outline" size="default" onClick={handleCompute} disabled={computing}>
             {computing ? <RefreshCw className="size-4 animate-spin" /> : <RefreshCw className="size-4" />}
