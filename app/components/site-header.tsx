@@ -66,7 +66,7 @@ export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
       >
         <div
           className={cn(
-            "mx-auto flex max-w-7xl items-center justify-between rounded-full border border-border/80 bg-card/90 px-3 py-2 shadow-ink-soft backdrop-blur-2xl transition-all duration-300",
+            "mx-auto flex max-w-6xl items-center justify-between rounded-full border border-border/80 bg-card/90 px-3 py-1.5 shadow-ink-soft backdrop-blur-2xl transition-all duration-300",
             "supports-[backdrop-filter]:bg-card/85 dark:border-white/10 dark:bg-background/45 dark:supports-[backdrop-filter]:bg-background/40",
             scrolled && "shadow-ink-strong",
           )}
@@ -80,7 +80,7 @@ export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-5 text-xs uppercase tracking-[0.22em] text-foreground/70 xl:flex">
+          <nav className="hidden items-center gap-5 text-[11px] uppercase tracking-[0.22em] text-foreground/70 xl:flex">
             {navItems.map((item) => (
               <Link
                 className="group transition-colors hover:text-foreground"
@@ -94,7 +94,7 @@ export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
 
           <div className="flex items-center gap-2">
             {isAuthenticated ? (
-              <Button asChild variant="outline" className="hidden md:inline-flex">
+              <Button asChild variant="outline" className="hidden h-10 md:inline-flex">
                 <Link href="/dashboard">
                   Dashboard
                   <ArrowRight className="size-4" />
@@ -102,10 +102,10 @@ export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
               </Button>
             ) : (
               <>
-                <Button asChild variant="ghost" className="hidden md:inline-flex">
+                <Button asChild variant="ghost" className="hidden h-10 md:inline-flex">
                   <Link href="/login">Login</Link>
                 </Button>
-                <Button asChild variant="outline" className="hidden lg:inline-flex">
+                <Button asChild variant="outline" className="hidden h-10 lg:inline-flex">
                   <Link href="/signup">
                     Sign up
                     <ArrowRight className="size-4" />
@@ -114,7 +114,7 @@ export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
               </>
             )}
             <ThemeToggle />
-            <Button asChild variant="default" className="hidden sm:inline-flex">
+            <Button asChild variant="default" className="hidden h-10 sm:inline-flex">
               <Link href="/#book-demo">
                 Book a demo
                 <ArrowUpRight className="size-4" />
@@ -126,7 +126,7 @@ export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((value) => !value)}
-              className="grid size-11 place-items-center rounded-full border border-border/70 bg-card/70 text-foreground xl:hidden"
+              className="grid size-10 place-items-center rounded-full border border-border/70 bg-card/70 text-foreground xl:hidden"
             >
               {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>
@@ -187,7 +187,7 @@ export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
 function PromoStrip() {
   return (
     <div className="fixed inset-x-0 top-0 z-[60] border-b border-border/40 bg-foreground/95 text-background backdrop-blur-2xl">
-      <div className="mx-auto flex h-9 max-w-7xl items-center justify-between gap-3 px-4 text-[11px] font-medium uppercase tracking-[0.2em] sm:px-6 sm:text-xs lg:px-8">
+      <div className="mx-auto flex h-9 max-w-6xl items-center justify-between gap-3 px-4 text-[11px] font-medium uppercase tracking-[0.2em] sm:px-6 lg:px-8">
         <span className="flex items-center gap-2 truncate">
           <Sparkles className="size-3.5 shrink-0 text-amber-200" aria-hidden />
           <span className="truncate">

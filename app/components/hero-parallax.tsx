@@ -80,18 +80,18 @@ export function HeroParallax() {
 
         <motion.div
           aria-hidden="true"
-          className="absolute right-[7%] top-[24%] hidden h-[34rem] w-[34rem] rounded-full border border-white/14 xl:block"
+          className="absolute right-[8%] top-[25%] hidden h-[30rem] w-[30rem] rounded-full border border-white/14 xl:block"
           style={{ y: ringY }}
         />
 
-        <div className="relative z-10 flex min-h-screen items-center px-4 pb-20 pt-36 sm:px-6 lg:px-8">
+        <div className="relative z-10 flex min-h-screen items-center px-4 pb-18 pt-32 sm:px-6 lg:px-8">
           <motion.div
-            className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[minmax(0,1fr)_360px] xl:grid-cols-[minmax(0,1fr)_410px] lg:items-center"
+            className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[minmax(0,1fr)_330px] xl:grid-cols-[minmax(0,1fr)_370px] lg:items-center"
             style={{ y: contentY, opacity }}
           >
-            <div className="max-w-4xl">
+            <div className="max-w-3xl">
               <motion.div
-                className="mb-5 flex w-fit items-center gap-3 rounded-full border border-white/15 bg-black/30 px-3 py-2 text-[11px] uppercase tracking-widest text-white/75 backdrop-blur-2xl"
+                className="mb-4 flex w-fit items-center gap-3 rounded-full border border-white/15 bg-black/30 px-3 py-2 text-[10px] uppercase tracking-widest text-white/75 backdrop-blur-2xl"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
@@ -101,7 +101,7 @@ export function HeroParallax() {
               </motion.div>
 
               <motion.div
-                className="mb-6 inline-flex max-w-full items-center gap-2 rounded-full border border-amber-200/40 bg-amber-200/15 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-amber-100 backdrop-blur-2xl"
+                className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-amber-200/40 bg-amber-200/15 px-4 py-2 text-[11px] font-semibold uppercase tracking-widest text-amber-100 backdrop-blur-2xl"
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.16, ease: "easeOut" }}
@@ -112,13 +112,13 @@ export function HeroParallax() {
 
               <h1
                 id="hero-heading"
-                className="max-w-4xl text-balance text-6xl font-semibold leading-none tracking-normal text-white sm:text-7xl lg:text-8xl"
+                className="max-w-3xl text-balance text-5xl font-semibold leading-[0.96] tracking-normal text-white sm:text-6xl lg:text-7xl xl:text-[5.75rem]"
               >
                 <TextReveal delay={0.08}>Diagnose the hidden system</TextReveal>
               </h1>
 
               <motion.p
-                className="mt-7 max-w-2xl text-lg leading-8 text-white/82"
+                className="mt-6 max-w-xl text-base leading-7 text-white/82 lg:text-[1.05rem]"
                 initial={{ opacity: 0, y: 22 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
@@ -129,7 +129,7 @@ export function HeroParallax() {
               </motion.p>
 
               <motion.div
-                className="mt-8 flex flex-wrap items-center gap-3"
+                className="mt-7 flex flex-wrap items-center gap-3"
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.75, delay: 0.66, ease: "easeOut" }}
@@ -184,59 +184,59 @@ export function HeroParallax() {
 
             <motion.aside
               aria-label="ANSAKA OAM framework summary"
-              className="relative hidden rounded-[1.75rem] border border-white/16 bg-black/34 p-5 text-white shadow-ink-soft backdrop-blur-2xl lg:block"
+              className="relative hidden rounded-[1.5rem] border border-white/16 bg-black/34 p-4 text-white shadow-ink-soft backdrop-blur-2xl lg:block"
               style={{ y: panelY }}
               initial={{ opacity: 0, x: 28 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.85, delay: 0.58, ease: "easeOut" }}
             >
-              <div className="mb-5 flex items-center justify-between">
+              <div className="mb-4 flex items-center justify-between">
                 <div>
-                  <p className="text-xs uppercase tracking-widest text-white/55">OAM Insight</p>
-                  <h2 className="mt-1 text-xl font-semibold tracking-normal">Executive map</h2>
+                  <p className="text-[11px] uppercase tracking-widest text-white/55">OAM Insight</p>
+                  <h2 className="mt-1 text-lg font-semibold tracking-normal">Executive map</h2>
                 </div>
-                <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/70">
+                <span className="rounded-full border border-white/15 px-2.5 py-1 text-[11px] text-white/70">
                   live
                 </span>
               </div>
 
-              <div className="grid gap-3">
+              <div className="grid gap-2.5">
                 {metrics.map(([value, label]) => (
                   <div
-                    className="grid grid-cols-[72px_1fr] items-center gap-4 rounded-[1.15rem] border border-white/12 bg-white/[0.07] p-4"
+                    className="grid grid-cols-[58px_1fr] items-center gap-3 rounded-2xl border border-white/12 bg-white/[0.07] p-3.5"
                     key={label}
                   >
-                    <div className="text-4xl font-semibold leading-none tracking-normal">
+                    <div className="text-3xl font-semibold leading-none tracking-normal">
                       {value}
                     </div>
-                    <div className="text-xs uppercase leading-5 tracking-widest text-white/62">
+                    <div className="text-[11px] uppercase leading-5 tracking-widest text-white/62">
                       {label}
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-4 rounded-[1.25rem] border border-white/12 bg-white/[0.07] p-4">
-                <p className="text-xs uppercase tracking-widest text-white/55">Priority signals</p>
-                <div className="mt-3 space-y-3">
+              <div className="mt-3.5 rounded-2xl border border-white/12 bg-white/[0.07] p-3.5">
+                <p className="text-[11px] uppercase tracking-widest text-white/55">Priority signals</p>
+                <div className="mt-3 space-y-2.5">
                   {priorities.map(([value, label, status]) => (
                     <div className="flex items-center justify-between gap-4" key={label}>
                       <div>
-                        <p className="text-sm font-medium">{label}</p>
-                        <p className="text-xs text-white/48">{status}</p>
+                        <p className="text-[13px] font-medium">{label}</p>
+                        <p className="text-[11px] text-white/48">{status}</p>
                       </div>
-                      <span className="text-2xl font-semibold tracking-normal">{value}</span>
+                      <span className="text-xl font-semibold tracking-normal">{value}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="mt-4 rounded-[1.25rem] border border-white/12 bg-white/[0.07] p-4">
-                <div className="flex items-center justify-between text-xs uppercase tracking-widest text-white/55">
+              <div className="mt-3.5 rounded-2xl border border-white/12 bg-white/[0.07] p-3.5">
+                <div className="flex items-center justify-between text-[11px] uppercase tracking-widest text-white/55">
                   Scroll depth
                   <ArrowDown className="size-4 animate-bounce" />
                 </div>
-                <div className="mt-4 h-2 rounded-full bg-white/10">
+                <div className="mt-3 h-2 rounded-full bg-white/10">
                   <motion.div
                     className="h-full rounded-full bg-gradient-to-r from-cyan-200 via-white to-amber-200"
                     style={{ scaleX: smoothProgress, transformOrigin: "left" }}
@@ -247,7 +247,7 @@ export function HeroParallax() {
               <Button
                 asChild
                 variant="ghost"
-                className="mt-4 w-full justify-between border border-white/20 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                className="mt-3.5 h-10 w-full justify-between border border-white/20 bg-white/10 text-white hover:bg-white/20 hover:text-white"
               >
                 <Link href="/login">
                   Login or create workspace
