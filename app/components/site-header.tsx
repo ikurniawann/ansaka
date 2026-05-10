@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { supabase } from "@/lib/supabase-client";
 import { cn } from "@/lib/utils";
 
 export type SiteHeaderProps = {
@@ -24,12 +25,32 @@ const navItems: Array<{ label: string; href: string }> = [
 export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    let mounted = true;
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (mounted) setIsAuthenticated(Boolean(session));
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAuthenticated(Boolean(session));
+    });
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   return (
@@ -72,15 +93,26 @@ export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Button asChild variant="ghost" className="hidden md:inline-flex">
-              <Link href="/login">Login</Link>
-            </Button>
-            <Button asChild variant="outline" className="hidden lg:inline-flex">
-              <Link href="/signup">
-                Sign up
-                <ArrowRight className="size-4" />
-              </Link>
-            </Button>
+            {isAuthenticated ? (
+              <Button asChild variant="outline" className="hidden md:inline-flex">
+                <Link href="/dashboard">
+                  Dashboard
+                  <ArrowRight className="size-4" />
+                </Link>
+              </Button>
+            ) : (
+              <>
+                <Button asChild variant="ghost" className="hidden md:inline-flex">
+                  <Link href="/login">Login</Link>
+                </Button>
+                <Button asChild variant="outline" className="hidden lg:inline-flex">
+                  <Link href="/signup">
+                    Sign up
+                    <ArrowRight className="size-4" />
+                  </Link>
+                </Button>
+              </>
+            )}
             <ThemeToggle />
             <Button asChild variant="default" className="hidden sm:inline-flex">
               <Link href="/#book-demo">
@@ -122,18 +154,29 @@ export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
                 <ArrowRight className="size-4 text-foreground/40" />
               </Link>
             ))}
-            <div className="mt-2 grid grid-cols-2 gap-2 border-t border-border/70 px-2 pt-3">
-              <Button asChild variant="outline">
-                <Link href="/login" onClick={() => setMobileOpen(false)}>
-                  Login
-                </Link>
-              </Button>
-              <Button asChild>
-                <Link href="/signup" onClick={() => setMobileOpen(false)}>
-                  Sign up
-                </Link>
-              </Button>
-            </div>
+            {isAuthenticated ? (
+              <div className="mt-2 border-t border-border/70 px-2 pt-3">
+                <Button asChild className="w-full">
+                  <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
+                    Dashboard
+                    <ArrowRight className="size-4" />
+                  </Link>
+                </Button>
+              </div>
+            ) : (
+              <div className="mt-2 grid grid-cols-2 gap-2 border-t border-border/70 px-2 pt-3">
+                <Button asChild variant="outline">
+                  <Link href="/login" onClick={() => setMobileOpen(false)}>
+                    Login
+                  </Link>
+                </Button>
+                <Button asChild>
+                  <Link href="/signup" onClick={() => setMobileOpen(false)}>
+                    Sign up
+                  </Link>
+                </Button>
+              </div>
+            )}
           </nav>
         </div>
       </header>

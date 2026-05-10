@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Building2, CheckCircle2, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -32,6 +32,7 @@ const SCALE = [
 
 export default function SurveyPage() {
   const { token } = useParams<{ token: string }>();
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const [meta, setMeta] = useState<SurveyMeta | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -57,6 +58,15 @@ export default function SurveyPage() {
         setLoading(false);
       });
   }, [token]);
+
+  useEffect(() => {
+    if (loading) return;
+
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      contentRef.current?.focus({ preventScroll: true });
+    });
+  }, [loading, step, submitted]);
 
   function setAnswer(driver: string, qIdx: number, value: number) {
     setAnswers((prev) => ({
@@ -189,7 +199,11 @@ export default function SurveyPage() {
         )}
       </header>
 
-      <div className="mx-auto max-w-3xl px-4 py-10">
+      <div
+        ref={contentRef}
+        tabIndex={-1}
+        className="mx-auto max-w-3xl px-4 py-10 outline-none"
+      >
         {/* Intro step */}
         {step === 0 && (
           <div>
