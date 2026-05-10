@@ -52,19 +52,29 @@ export default function BatchDetailPage() {
   const [copied, setCopied] = useState(false);
 
   async function loadBatch() {
-    const { data: b } = await supabase
+    const { data: b, error: batchError } = await supabase
       .from("survey_batches")
       .select("id, name, status, credits_allocated, credits_used, created_at, closed_at, unique_link_token, organization_id")
       .eq("id", id)
       .single();
+
+    if (batchError) {
+      throw new Error(batchError.message || "Gagal memuat batch.");
+    }
+
     if (!b) { router.replace("/dashboard/batches"); return; }
     setBatch(b as Batch);
 
-    const { data: r } = await supabase
+    const { data: r, error: resultError } = await supabase
       .from("batch_results")
       .select("respondent_count, overall_score, maturity_level, computed_at")
       .eq("batch_id", id)
       .maybeSingle();
+
+    if (resultError) {
+      throw new Error(resultError.message || "Gagal memuat hasil batch.");
+    }
+
     setResult(r as BatchResult);
   }
 
@@ -81,7 +91,27 @@ export default function BatchDetailPage() {
     setActionLoading(true);
     setError(null);
     try {
-      await supabase.rpc("activate_batch", { p_batch_id: id });
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        router.replace("/login");
+        return;
+      }
+
+      const response = await fetch(`/api/batches/${id}/activate`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
+      const payload = (await response.json().catch(() => ({}))) as { error?: string };
+
+      if (!response.ok) {
+        throw new Error(payload.error || "Gagal mengaktifkan batch.");
+      }
+
       await loadBatch();
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Gagal mengaktifkan batch.");
@@ -95,7 +125,10 @@ export default function BatchDetailPage() {
     setActionLoading(true);
     setError(null);
     try {
-      await supabase.rpc("close_batch", { p_batch_id: id });
+      const { error: closeError } = await supabase.rpc("close_batch", { p_batch_id: id });
+      if (closeError) {
+        throw new Error(closeError.message || "Gagal menutup batch.");
+      }
       await loadBatch();
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Gagal menutup batch.");
@@ -108,7 +141,10 @@ export default function BatchDetailPage() {
     setActionLoading(true);
     setError(null);
     try {
-      await supabase.rpc("compute_batch_results", { p_batch_id: id });
+      const { error: computeError } = await supabase.rpc("compute_batch_results", { p_batch_id: id });
+      if (computeError) {
+        throw new Error(computeError.message || "Gagal menghitung hasil.");
+      }
       await loadBatch();
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Gagal menghitung hasil. Pastikan ada respons yang sudah lengkap.");
