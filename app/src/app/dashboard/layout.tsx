@@ -6,11 +6,10 @@ import {
   BarChart3,
   Building2,
   CreditCard,
+  FileText,
   LayoutDashboard,
   LogOut,
-  Settings,
   Shield,
-  Users,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -23,6 +22,7 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { href: "/dashboard",         label: "Overview",  icon: LayoutDashboard },
   { href: "/dashboard/batches", label: "Batches",   icon: BarChart3 },
+  { href: "/dashboard/reports", label: "Report",    icon: FileText },
   { href: "/dashboard/credits", label: "Credits",   icon: CreditCard },
 ];
 
