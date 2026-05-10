@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { ArrowLeft, RefreshCw } from "lucide-react";
+import { ArrowLeft, Download, RefreshCw } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -182,9 +182,9 @@ export default function ResultsPage() {
     .sort((a, b) => a.score - b.score);
 
   return (
-    <div className="px-8 py-8">
+    <div className="px-8 py-8 print-report">
       {/* Back + header */}
-      <Button asChild variant="ghost" className="mb-6 -ml-3">
+      <Button asChild variant="ghost" className="mb-6 -ml-3 print-hidden">
         <Link href={`/dashboard/batches/${id}`}><ArrowLeft className="size-4" /> Kembali ke Batch</Link>
       </Button>
 
@@ -201,10 +201,16 @@ export default function ResultsPage() {
             })}
           </p>
         </div>
-        <Button variant="outline" size="default" onClick={handleCompute} disabled={computing}>
-          {computing ? <RefreshCw className="size-4 animate-spin" /> : <RefreshCw className="size-4" />}
-          Perbarui
-        </Button>
+        <div className="flex items-center gap-2 print-hidden">
+          <Button variant="outline" size="default" onClick={() => window.print()}>
+            <Download className="size-4" />
+            Export PDF
+          </Button>
+          <Button variant="outline" size="default" onClick={handleCompute} disabled={computing}>
+            {computing ? <RefreshCw className="size-4 animate-spin" /> : <RefreshCw className="size-4" />}
+            Perbarui
+          </Button>
+        </div>
       </div>
 
       {error && (
@@ -275,7 +281,7 @@ export default function ResultsPage() {
 
       {/* Tabs: 5 sections */}
       <Tabs defaultValue="layers" className="mt-10">
-        <TabsList className="h-auto flex-wrap gap-1 p-1.5">
+        <TabsList className="h-auto flex-wrap gap-1 p-1.5 print-hidden">
           <TabsTrigger value="layers">Layer View</TabsTrigger>
           <TabsTrigger value="drivers">12 Drivers</TabsTrigger>
           <TabsTrigger value="gaps">Execution Gaps</TabsTrigger>

@@ -70,3 +70,38 @@
     text-wrap: balance;
   }
 }
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  html,
+  body {
+    background: white !important;
+    color: #0f172a !important;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+  .print-report {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .print-report * {
+    box-shadow: none !important;
+  }
+
+  .print-report [class*="bg-card"],
+  .print-report [class*="bg-background"] {
+    background: white !important;
+  }
+
+  .print-report [class*="text-muted-foreground"] {
+    color: #475569 !important;
+  }
+}

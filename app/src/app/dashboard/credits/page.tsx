@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { CreditCard, Loader2 } from "lucide-react";
+import { CheckCircle2, CreditCard, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -47,8 +47,50 @@ export default function CreditsPage() {
   const [checkoutPackageId, setCheckoutPackageId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
+  const [isPollingPayment, setIsPollingPayment] = useState(false);
+
+  async function loadCreditData() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) { router.replace("/login"); return null; }
+
+    const { data: profile } = await supabase
+      .from("users")
+      .select("organization_id, credit_balance")
+      .eq("id", session.user.id)
+      .single();
+
+    if (!profile) return null;
+
+    setCreditBalance(profile.credit_balance ?? 0);
+    setOrgId(profile.organization_id);
+
+    const [pkgRes, txRes] = await Promise.all([
+      supabase
+        .from("credit_packages")
+        .select("id, name, credits, price_idr, description, sort_order")
+        .eq("is_active", true)
+        .order("sort_order"),
+      supabase
+        .from("credit_transactions")
+        .select("id, type, amount, notes, payment_provider, payment_status, checkout_url, created_at")
+        .eq("organization_id", profile.organization_id)
+        .order("created_at", { ascending: false })
+        .limit(20),
+    ]);
+
+    setPackages((pkgRes.data ?? []) as CreditPackage[]);
+    setTransactions((txRes.data ?? []) as CreditTx[]);
+
+    return {
+      profile,
+      transactions: (txRes.data ?? []) as CreditTx[],
+    };
+  }
 
   useEffect(() => {
+    let interval: number | undefined;
+    let cancelled = false;
+
     (async () => {
       const paymentResult = new URLSearchParams(window.location.search).get("payment");
       if (paymentResult === "success") {
@@ -58,37 +100,49 @@ export default function CreditsPage() {
         setError("Pembayaran dibatalkan atau gagal. Silakan coba lagi.");
       }
 
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { router.replace("/login"); return; }
-
-      const { data: profile } = await supabase
-        .from("users")
-        .select("organization_id, credit_balance")
-        .eq("id", session.user.id)
-        .single();
-
-      if (!profile) { setLoading(false); return; }
-      setCreditBalance(profile.credit_balance ?? 0);
-      setOrgId(profile.organization_id);
-
-      const [pkgRes, txRes] = await Promise.all([
-        supabase
-          .from("credit_packages")
-          .select("id, name, credits, price_idr, description, sort_order")
-          .eq("is_active", true)
-          .order("sort_order"),
-        supabase
-          .from("credit_transactions")
-          .select("id, type, amount, notes, payment_provider, payment_status, checkout_url, created_at")
-          .eq("organization_id", profile.organization_id)
-          .order("created_at", { ascending: false })
-          .limit(20),
-      ]);
-
-      setPackages((pkgRes.data ?? []) as CreditPackage[]);
-      setTransactions((txRes.data ?? []) as CreditTx[]);
+      const initialData = await loadCreditData();
+      if (cancelled) return;
       setLoading(false);
+
+      if (paymentResult !== "success" || !initialData) return;
+
+      const latestPurchase = initialData.transactions.find(
+        (tx) => tx.type === "purchase" && tx.payment_provider === "xendit",
+      );
+
+      if (latestPurchase?.payment_status === "paid") {
+        setNotice("Pembayaran berhasil. Kredit sudah masuk ke saldo workspace.");
+        return;
+      }
+
+      setIsPollingPayment(true);
+
+      let attempts = 0;
+      interval = window.setInterval(async () => {
+        attempts += 1;
+        const nextData = await loadCreditData();
+        if (cancelled) return;
+        const latest = nextData?.transactions.find(
+          (tx) => tx.type === "purchase" && tx.payment_provider === "xendit",
+        );
+
+        if (latest?.payment_status === "paid") {
+          setNotice("Pembayaran berhasil. Kredit sudah masuk ke saldo workspace.");
+          setIsPollingPayment(false);
+          window.clearInterval(interval);
+        }
+
+        if (attempts >= 12) {
+          setIsPollingPayment(false);
+          window.clearInterval(interval);
+        }
+      }, 2500);
     })();
+
+    return () => {
+      cancelled = true;
+      if (interval) window.clearInterval(interval);
+    };
   }, [router]);
 
   function txTypeBadge(type: string, amount: number) {
@@ -159,7 +213,14 @@ export default function CreditsPage() {
 
       {notice ? (
         <Alert className="mt-4 max-w-3xl" variant="success">
-          <AlertDescription>{notice}</AlertDescription>
+          <AlertDescription className="flex items-center gap-2">
+            {isPollingPayment ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              <CheckCircle2 className="size-4" />
+            )}
+            {notice}
+          </AlertDescription>
         </Alert>
       ) : null}
 
