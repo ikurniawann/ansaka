@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Building2, LockKeyhole, Mail, UserRound } from "lucide-react";
+import { ArrowRight, Building2, CheckCircle2, LockKeyhole, Mail, Sparkles, UserRound } from "lucide-react";
 import { FormEvent, useState } from "react";
 
 import { SiteHeader } from "@/components/site-header";
@@ -25,10 +25,10 @@ const copy = {
     switchHref: "/signup",
   },
   signup: {
-    eyebrow: "Create organization workspace",
-    title: "Mulai workspace diagnostik organisasi.",
-    body: "Daftarkan perusahaan dan admin pertama. Setelah akun aktif, kamu bisa membuat survey batch dan membagikan link assessment.",
-    submit: "Create workspace",
+    eyebrow: "Create organization workspace · 30 credit gratis",
+    title: "Mulai workspace diagnostik. 30 credit gratis di tangan.",
+    body: "Daftarkan perusahaan dan admin pertama. Begitu workspace aktif, otomatis Anda dapat 30 credit gratis — setara 30 link survey untuk pilot batch pertama. Tanpa kartu kredit.",
+    submit: "Create workspace · klaim 30 credit",
     switchText: "Sudah punya akun?",
     switchAction: "Login",
     switchHref: "/login",
@@ -160,16 +160,40 @@ export function AuthShell({ mode }: AuthShellProps) {
             {content.body}
           </p>
 
-          <div className="mt-10 grid max-w-xl gap-3 sm:grid-cols-3">
-            {["RLS protected", "Batch survey", "Aggregate insight"].map((item) => (
-              <div className="rounded-[1.25rem] border border-border bg-card/70 p-4" key={item}>
-                <div className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  Portal
-                </div>
-                <div className="mt-4 text-sm font-medium">{item}</div>
+          {isSignup ? (
+            <div className="mt-10 max-w-xl rounded-[1.5rem] border border-amber-400/40 bg-amber-50/80 p-5 text-amber-900 shadow-ink-soft dark:bg-amber-500/10 dark:text-amber-200">
+              <div className="flex items-center gap-3 text-xs uppercase tracking-[0.22em]">
+                <Sparkles className="size-4" aria-hidden />
+                Welcome bonus
               </div>
-            ))}
-          </div>
+              <div className="mt-3 text-2xl font-semibold tracking-[-0.03em]">
+                30 credit gratis = 30 link survey
+              </div>
+              <ul className="mt-4 space-y-2 text-sm leading-6">
+                {[
+                  "Otomatis tercatat di credit balance saat workspace aktif.",
+                  "Cukup untuk pilot batch sampai 30 responden.",
+                  "Tidak perlu kartu kredit, tidak ada masa expired.",
+                ].map((b) => (
+                  <li className="flex items-start gap-2" key={b}>
+                    <CheckCircle2 className="mt-0.5 size-4 shrink-0" aria-hidden />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div className="mt-10 grid max-w-xl gap-3 sm:grid-cols-3">
+              {["RLS protected", "Batch survey", "Aggregate insight"].map((item) => (
+                <div className="rounded-[1.25rem] border border-border bg-card/70 p-4" key={item}>
+                  <div className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                    Portal
+                  </div>
+                  <div className="mt-4 text-sm font-medium">{item}</div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="rounded-[2rem] border border-border bg-card/80 p-4 shadow-ink-soft backdrop-blur-2xl sm:p-7 lg:min-w-[600px]">

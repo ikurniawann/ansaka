@@ -54,6 +54,8 @@ const config: Config = {
       boxShadow: {
         glow: "0 0 60px rgba(117, 184, 255, 0.24)",
         "ink-soft": "0 30px 120px rgba(0, 0, 0, 0.28)",
+        "ink-strong":
+          "0 24px 48px -12px rgba(15, 23, 42, 0.4), 0 8px 16px -8px rgba(15, 23, 42, 0.18)",
       },
       keyframes: {
         "float-slow": {

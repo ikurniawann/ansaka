@@ -7,7 +7,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { ArrowDown, ArrowRight, ArrowUpRight, LogIn, Play, UserPlus } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, LogIn, Play, Sparkles, UserPlus } from "lucide-react";
 import Link from "next/link";
 import { useRef } from "react";
 
@@ -162,6 +162,19 @@ export function HeroParallax() {
                 Executive alignment map
               </motion.div>
 
+              <motion.div
+                className="mb-7 flex w-fit items-center gap-2 rounded-full border border-amber-200/50 bg-amber-200/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-amber-100 backdrop-blur-2xl"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.18, ease: "easeOut" }}
+              >
+                <Sparkles className="size-3.5" aria-hidden />
+                <span>
+                  <span className="text-amber-200">Promo workspace baru:</span>{" "}
+                  30 credit gratis · 30 link survey
+                </span>
+              </motion.div>
+
               <h1 className="max-w-4xl text-balance text-[clamp(3.8rem,8.8vw,9.5rem)] font-semibold leading-[0.82] tracking-[-0.07em] text-white md:max-w-5xl">
                 <TextReveal delay={0.08}>Diagnose the hidden system</TextReveal>
               </h1>
@@ -179,18 +192,21 @@ export function HeroParallax() {
                 </p>
                 <div className="flex flex-wrap items-center gap-3 self-end">
                   <Button asChild size="lg">
-                    <a href="#contact">
-                      Start mapping
+                    <Link href="/signup">
+                      Klaim 30 credit gratis
                       <ArrowUpRight className="size-4" />
-                    </a>
+                    </Link>
                   </Button>
                   <Button
+                    asChild
                     size="lg"
                     variant="ghost"
                     className="border border-white/25 bg-white/10 text-white hover:bg-white/20 hover:text-white"
                   >
-                    <Play className="size-4 fill-current" />
-                    Watch flow
+                    <a href="#sample-report">
+                      <Play className="size-4 fill-current" />
+                      Lihat sample report
+                    </a>
                   </Button>
                 </div>
               </motion.div>
