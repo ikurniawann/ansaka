@@ -1,93 +1,54 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight, Quote, TrendingUp } from "lucide-react";
+import { ArrowRight, TrendingUp } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 
 type CaseStudy = {
   industry: string;
-  companySize: string;
   title: string;
-  challenge: string;
-  intervention: string;
-  before: { label: string; value: string }[];
-  after: { label: string; value: string }[];
+  metrics: { label: string; before: string; after: string; improvement: string }[];
   quote: string;
   attribution: string;
-  duration: string;
 };
 
 const cases: CaseStudy[] = [
   {
     industry: "Manufaktur FMCG",
-    companySize: "2.400 karyawan",
-    title: "Mengurai decision bottleneck di 11 plant.",
-    challenge:
-      "Decision rights tidak jelas antara HQ dan plant. Eskalasi rata-rata butuh 14 hari, KPI lag 2 kuartal.",
-    intervention:
-      "Diagnostik penuh OAM + workshop redesign decision matrix berbasis 3 driver bermasalah (D4, D5, D6).",
-    before: [
-      { label: "Waktu eskalasi", value: "14 hari" },
-      { label: "OAM Score", value: "54" },
-      { label: "Decision FP", value: "FP9 · FP10" },
-    ],
-    after: [
-      { label: "Waktu eskalasi", value: "3 hari" },
-      { label: "OAM Score", value: "71" },
-      { label: "Throughput", value: "+38%" },
+    title: "Decision bottleneck di 11 plant",
+    metrics: [
+      { label: "Eskalasi", before: "14 hari", after: "3 hari", improvement: "-79%" },
+      { label: "OAM Score", before: "54", after: "71", improvement: "+31%" },
+      { label: "Throughput", before: "-", after: "+38%", improvement: "+38%" },
     ],
     quote:
-      "Kami akhirnya tahu tepat di layer mana sistem kami pecah. Tidak perlu lagi berdebat berdasarkan asumsi.",
-    attribution: "VP Operations · Group Manufacturing",
-    duration: "Q1 2025 → Q3 2025",
+      "Kami akhirnya tahu tepat di layer mana sistem kami pecah.",
+    attribution: "VP Operations",
   },
   {
     industry: "Banking & Finance",
-    companySize: "5.800 karyawan",
-    title: "Reset cascade strategi 2025 dalam 6 minggu.",
-    challenge:
-      "Strategi grup tidak pernah turun ke commercial branch. Engagement tinggi, eksekusi rendah.",
-    intervention:
-      "OAM diagnostik per region + intensive cascade workshop dengan executive committee.",
-    before: [
-      { label: "Cascade clarity", value: "41" },
-      { label: "OAM Score", value: "58" },
-      { label: "Engagement", value: "82" },
-    ],
-    after: [
-      { label: "Cascade clarity", value: "76" },
-      { label: "OAM Score", value: "74" },
-      { label: "Goal alignment", value: "+45%" },
+    title: "Reset cascade strategi dalam 6 minggu",
+    metrics: [
+      { label: "Cascade clarity", before: "41", after: "76", improvement: "+85%" },
+      { label: "OAM Score", before: "58", after: "74", improvement: "+28%" },
+      { label: "Goal alignment", before: "-", after: "+45%", improvement: "+45%" },
     ],
     quote:
-      "Engagement tinggi tapi eksekusi rendah ternyata bukan paradoks — itu gejala. ANSAKA menunjukkan akarnya.",
-    attribution: "Head of Strategy · National Bank",
-    duration: "Q4 2024 → Q1 2025",
+      "Engagement tinggi tapi eksekusi rendah — ANSAKA menunjukkan akarnya.",
+    attribution: "Head of Strategy",
   },
   {
-    industry: "Tech / SaaS Indonesia",
-    companySize: "320 karyawan",
-    title: "Scaling tanpa kehilangan culture energy.",
-    challenge:
-      "Pasca Series B, ownership turun, cross-team friction naik, top performer mulai resign.",
-    intervention:
-      "Pulse OAM tiap kuartal + targeted intervention pada driver kapabilitas dan kolaborasi.",
-    before: [
-      { label: "Culture energy", value: "61" },
-      { label: "OAM Score", value: "63" },
-      { label: "Voluntary attrition", value: "18%" },
-    ],
-    after: [
-      { label: "Culture energy", value: "82" },
-      { label: "OAM Score", value: "79" },
-      { label: "Voluntary attrition", value: "7%" },
+    industry: "Tech / SaaS",
+    title: "Scaling tanpa kehilangan culture",
+    metrics: [
+      { label: "Culture energy", before: "61", after: "82", improvement: "+34%" },
+      { label: "OAM Score", before: "63", after: "79", improvement: "+25%" },
+      { label: "Attrition", before: "18%", after: "7%", improvement: "-61%" },
     ],
     quote:
-      "Kami pakai ANSAKA sebagai operating instrument — bukan sekadar laporan tahunan. Tiap kuartal kami evolve.",
-    attribution: "CEO · Series B SaaS",
-    duration: "2024 — ongoing",
+      "ANSAKA jadi operating instrument — bukan sekadar laporan tahunan.",
+    attribution: "CEO, Series B SaaS",
   },
 ];
 
@@ -95,87 +56,78 @@ export function CaseStudies() {
   return (
     <section
       id="cases"
-      className="relative border-t border-border bg-background px-4 py-24 sm:px-6 lg:px-8 lg:py-32"
+      className="relative border-t border-border bg-muted/30 px-4 py-24 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
-          <div>
-            <p className="text-xs uppercase tracking-[0.28em] text-muted-foreground">
-              Case studies
-            </p>
-            <h2 className="mt-5 max-w-xl text-balance text-4xl font-semibold tracking-[-0.05em] text-foreground sm:text-5xl lg:text-6xl">
-              Angka before / after dari workspace nyata.
-            </h2>
-          </div>
-          <p className="max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
-            Nama perusahaan kami anonimkan sesuai NDA. Detail metrik dan
-            metodologi intervensi dipaparkan lengkap pada studi kasus PDF — bisa
-            diminta langsung lewat tombol di bawah.
+        <div className="text-center">
+          <p className="text-xs uppercase tracking-[0.28em] text-muted-foreground">
+            Case studies
+          </p>
+          <h2 className="mt-5 text-4xl font-semibold tracking-[-0.06em] text-foreground sm:text-5xl">
+            Hasil Nyata di Lapangan
+          </h2>
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+            Lihat bagaimana perusahaan-perusahaan ini bertransformasi dengan ANSAKA
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {cases.map((c, idx) => (
-            <motion.article
+        <div className="mt-16 space-y-8">
+          {cases.map((c) => (
+            <div
               key={c.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.55, delay: idx * 0.08 }}
-              className="flex flex-col rounded-[2rem] border border-border bg-card p-6 shadow-ink-soft"
+              className="rounded-[1.5rem] border border-border bg-card p-6 shadow-sm sm:p-8"
             >
-              <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-                <span>{c.industry}</span>
-                <span>{c.companySize}</span>
+              <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-sm font-medium text-green-600">
+                    {c.industry}
+                  </p>
+                  <h3 className="mt-1 text-2xl font-semibold text-foreground">
+                    {c.title}
+                  </h3>
+                </div>
               </div>
 
-              <h3 className="mt-5 text-2xl font-semibold tracking-[-0.04em] text-card-foreground">
-                {c.title}
-              </h3>
+              <div className="grid gap-4 sm:grid-cols-3">
+                {c.metrics.map((m) => (
+                  <div
+                    key={m.label}
+                    className="rounded-xl border border-border p-4 text-center"
+                  >
+                    <p className="text-sm text-muted-foreground">{m.label}</p>
+                    <div className="mt-2 flex items-baseline justify-center gap-2">
+                      <span className="text-lg font-medium text-muted-foreground line-through">
+                        {m.before}
+                      </span>
+                      <ArrowRight className="size-3 text-muted-foreground" />
+                      <span className="text-lg font-bold text-green-600">
+                        {m.after}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-xs font-semibold text-green-600">
+                      {m.improvement}
+                    </p>
+                  </div>
+                ))}
+              </div>
 
-              <div className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
-                <p>
-                  <span className="font-semibold text-foreground">Tantangan: </span>
-                  {c.challenge}
+              <blockquote className="mt-6 rounded-xl bg-muted/50 p-4">
+                <p className="text-sm italic leading-6 text-foreground">
+                  "{c.quote}"
                 </p>
-                <p>
-                  <span className="font-semibold text-foreground">Intervensi: </span>
-                  {c.intervention}
-                </p>
-              </div>
-
-              <div className="mt-6 grid grid-cols-2 gap-3">
-                <BeforeAfterColumn label="Before" items={c.before} tone="muted" />
-                <BeforeAfterColumn label="After" items={c.after} tone="solid" />
-              </div>
-
-              <blockquote className="mt-6 rounded-2xl border border-border bg-muted/40 p-4 text-sm leading-6 text-foreground">
-                <Quote className="size-4 text-foreground/40" aria-hidden />
-                <p className="mt-2 italic">“{c.quote}”</p>
-                <footer className="mt-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                  {c.attribution} · {c.duration}
+                <footer className="mt-2 text-xs font-medium text-muted-foreground">
+                  — {c.attribution}
                 </footer>
               </blockquote>
-
-              <div className="mt-auto pt-6">
-                <Link
-                  href="/#book-demo"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:underline"
-                >
-                  Minta studi kasus PDF
-                  <ArrowRight className="size-4" />
-                </Link>
-              </div>
-            </motion.article>
+            </div>
           ))}
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 rounded-[1.75rem] border border-border bg-card p-5">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 rounded-[1.75rem] border border-border bg-card p-6 sm:flex-row">
           <div className="flex items-start gap-3 text-sm text-muted-foreground">
-            <TrendingUp className="mt-0.5 size-5 shrink-0 text-foreground" aria-hidden />
+            <TrendingUp className="mt-0.5 size-5 shrink-0 text-green-600" />
             <p className="max-w-2xl">
-              Rata-rata kenaikan OAM Score 13–17 poin dalam 6 bulan untuk klien
-              yang menjalankan 2 cycle diagnostik + intervensi terarah.
+              Rata-rata kenaikan OAM Score <strong className="text-foreground">13–17 poin dalam 6 bulan</strong> untuk klien yang menjalankan 2 cycle diagnostik.
             </p>
           </div>
           <Button asChild>
@@ -187,47 +139,5 @@ export function CaseStudies() {
         </div>
       </div>
     </section>
-  );
-}
-
-function BeforeAfterColumn({
-  label,
-  items,
-  tone,
-}: {
-  label: string;
-  items: { label: string; value: string }[];
-  tone: "muted" | "solid";
-}) {
-  return (
-    <div
-      className={
-        tone === "solid"
-          ? "rounded-2xl border border-foreground/15 bg-foreground p-4 text-background"
-          : "rounded-2xl border border-border bg-muted/30 p-4 text-foreground"
-      }
-    >
-      <div
-        className={`text-[10px] uppercase tracking-[0.22em] ${
-          tone === "solid" ? "text-background/60" : "text-muted-foreground"
-        }`}
-      >
-        {label}
-      </div>
-      <ul className="mt-3 space-y-2">
-        {items.map((i) => (
-          <li key={i.label} className="flex items-center justify-between text-xs">
-            <span
-              className={
-                tone === "solid" ? "text-background/70" : "text-muted-foreground"
-              }
-            >
-              {i.label}
-            </span>
-            <span className="font-mono font-semibold tabular-nums">{i.value}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }
