@@ -231,7 +231,7 @@ export default function CreditsPage() {
       ) : null}
 
       {/* Balance */}
-      <div className="mt-6 flex items-center gap-4 rounded-[1.5rem] border border-border bg-card p-6">
+      <div data-tour="credits-balance" className="mt-6 flex items-center gap-4 rounded-[1.5rem] border border-border bg-card p-6">
         <div className="grid size-12 place-items-center rounded-full bg-primary">
           <CreditCard className="size-6 text-primary-foreground" />
         </div>
@@ -245,7 +245,7 @@ export default function CreditsPage() {
       </div>
 
       {/* Packages */}
-      <div className="mt-8">
+      <div data-tour="credits-packages" className="mt-8">
         <h2 className="text-base font-semibold">Paket Kredit Tersedia</h2>
         <p className="mt-1 text-sm text-muted-foreground">
           Pembayaran sandbox memakai Xendit development mode. Tidak ada tagihan real selama
@@ -295,7 +295,7 @@ export default function CreditsPage() {
       </div>
 
       {/* Transaction history */}
-      <div className="mt-10">
+      <div data-tour="credits-transactions" className="mt-10">
         <h2 className="text-base font-semibold">Riwayat Transaksi</h2>
         {transactions.length === 0 ? (
           <p className="mt-3 text-sm text-muted-foreground">Belum ada transaksi kredit.</p>

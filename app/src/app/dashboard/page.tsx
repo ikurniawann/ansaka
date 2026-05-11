@@ -200,7 +200,7 @@ export default function DashboardPage() {
           </h1>
           {organization?.name && <p className="mt-0.5 text-sm text-muted-foreground">{organization.name}</p>}
         </div>
-        <Button asChild>
+        <Button asChild data-tour="dashboard-create-batch">
           <Link href="/dashboard/batches/new">
             <Plus className="size-4" />
             Batch Baru
