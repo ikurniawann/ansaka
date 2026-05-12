@@ -1,18 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Menu, Sparkles, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { supabase } from "@/lib/supabase-client";
 import { cn } from "@/lib/utils";
-
-export type SiteHeaderProps = {
-  /** When true, hides the marketing promo strip (e.g. on dashboard). */
-  hidePromo?: boolean;
-};
 
 const navItems: Array<{ label: string; href: string }> = [
   { label: "How it works", href: "/#how-it-works" },
@@ -22,7 +17,7 @@ const navItems: Array<{ label: string; href: string }> = [
   { label: "FAQ", href: "/#faq" },
 ];
 
-export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
+export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -55,12 +50,10 @@ export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
 
   return (
     <>
-      {!hidePromo ? <PromoStrip /> : null}
-
       <header
         className={cn(
           "fixed inset-x-0 z-50 px-3 transition-all duration-300 sm:px-6 lg:px-8",
-          hidePromo ? "top-3" : "top-9 sm:top-10",
+          "top-3",
           scrolled && "top-3",
         )}
       >
@@ -181,30 +174,5 @@ export function SiteHeader({ hidePromo = false }: SiteHeaderProps) {
         </div>
       </header>
     </>
-  );
-}
-
-function PromoStrip() {
-  return (
-    <div className="fixed inset-x-0 top-0 z-[60] border-b border-border/40 bg-foreground/95 text-background backdrop-blur-2xl">
-      <div className="mx-auto flex h-9 max-w-6xl items-center justify-between gap-3 px-4 text-[11px] font-medium uppercase tracking-[0.2em] sm:px-6 lg:px-8">
-        <span className="flex items-center gap-2 truncate">
-          <Sparkles className="size-3.5 shrink-0 text-amber-200" aria-hidden />
-          <span className="truncate">
-            <span className="text-amber-200">Promo:</span>{" "}
-            <span className="text-background/90">
-              Workspace baru dapat 30 credit gratis = 30 link survey
-            </span>
-          </span>
-        </span>
-        <Link
-          href="/signup"
-          className="hidden shrink-0 items-center gap-1 text-amber-200 transition-colors hover:text-amber-100 sm:inline-flex"
-        >
-          Klaim sekarang
-          <ArrowRight className="size-3.5" aria-hidden />
-        </Link>
-      </div>
-    </div>
   );
 }

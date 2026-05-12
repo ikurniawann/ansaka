@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Konfirmasi akun ANSAKA</title>
+  </head>
+  <body style="margin:0; padding:0; background:#f5f7fb; color:#202124; font-family:Arial, Helvetica, sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%; border-collapse:collapse; background:#f5f7fb;">
+      <tr>
+        <td align="center" style="padding:32px 16px;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%; max-width:680px; border-collapse:collapse;">
+            <tr>
+              <td style="padding:0;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%; border-collapse:collapse; background:#ffffff; border:1px solid #d9dee7; border-radius:16px;">
+                  <tr>
+                    <td align="center" style="padding:54px 40px 22px;">
+                      <div style="display:inline-block; width:44px; height:44px; border-radius:999px; background:#111827; color:#ffffff; font-size:18px; line-height:44px; font-weight:700; letter-spacing:0.02em; text-align:center;">A</div>
+                      <div style="margin-top:16px; font-size:22px; line-height:28px; font-weight:700; letter-spacing:0.24em; color:#111827;">ANSAKA</div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td align="center" style="padding:0 48px;">
+                      <h1 style="margin:0; color:#202124; font-size:34px; line-height:44px; font-weight:500; letter-spacing:-0.02em;">
+                        Konfirmasi email untuk mengaktifkan workspace ANSAKA
+                      </h1>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td align="center" style="padding:26px 48px 34px;">
+                      <table role="presentation" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+                        <tr>
+                          <td align="center" style="width:32px; height:32px; border-radius:999px; background:#e83e72; color:#ffffff; font-size:17px; line-height:32px; font-weight:700;">A</td>
+                          <td style="padding-left:14px; color:#202124; font-size:18px; line-height:28px;">{{ .Email }}</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:0 44px;">
+                      <div style="height:1px; background:#d9dee7; line-height:1px; font-size:1px;">&nbsp;</div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:54px 44px 0;">
+                      <p style="margin:0; color:#202124; font-size:18px; line-height:30px;">
+                        Selamat datang di ANSAKA. Workspace diagnostik organisasi Anda hampir siap digunakan.
+                      </p>
+                      <p style="margin:24px 0 0; color:#202124; font-size:18px; line-height:30px;">
+                        Klik tombol di bawah ini untuk mengonfirmasi alamat email dan mengaktifkan akun admin pertama Anda.
+                      </p>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td align="center" style="padding:58px 44px 56px;">
+                      <a href="{{ .ConfirmationURL }}" style="display:inline-block; min-width:210px; background:#1558d6; border-radius:999px; color:#ffffff; font-size:18px; line-height:24px; font-weight:700; text-align:center; text-decoration:none; padding:18px 28px;">
+                        Konfirmasi akun
+                      </a>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:0 44px 36px;">
+                      <p style="margin:0; color:#202124; font-size:18px; line-height:30px;">
+                        Jika Anda tidak membuat akun ANSAKA, abaikan email ini. Akun tidak akan aktif sebelum email dikonfirmasi.
+                      </p>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding:0 44px;">
+                      <div style="height:1px; background:#d9dee7; line-height:1px; font-size:1px;">&nbsp;</div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td align="center" style="padding:32px 44px 52px;">
+                      <p style="margin:0; color:#5f6368; font-size:15px; line-height:24px;">
+                        Jika tombol tidak berfungsi, salin dan buka tautan ini di browser:
+                      </p>
+                      <p style="margin:6px 0 0; color:#1a73e8; font-size:15px; line-height:22px; word-break:break-all;">
+                        <a href="{{ .ConfirmationURL }}" style="color:#1a73e8; text-decoration:none;">{{ .ConfirmationURL }}</a>
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td align="center" style="padding:22px 18px 0;">
+                <p style="margin:0; color:#6b7280; font-size:14px; line-height:22px;">
+                  Anda menerima email ini karena ada pendaftaran akun di ANSAKA menggunakan alamat email ini.
+                </p>
+                <p style="margin:8px 0 0; color:#6b7280; font-size:14px; line-height:22px;">
+                  &copy; 2026 ANSAKA. Platform diagnostik organisasi dan survey OAM.
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

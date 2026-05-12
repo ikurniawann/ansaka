@@ -119,7 +119,7 @@ export function HeroParallax() {
               </h1>
 
               <motion.p
-                className="mt-6 max-w-xl text-base leading-7 text-white/82 lg:text-[1.05rem]"
+                className="mt-6 max-w-xl text-base leading-7 text-white/90 drop-shadow-[0_2px_18px_rgba(0,0,0,0.6)] lg:text-[1.05rem]"
                 initial={{ opacity: 0, y: 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "0px" }}

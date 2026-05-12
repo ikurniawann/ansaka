@@ -14,6 +14,7 @@ import {
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { DashboardOnboardingTour } from "@/components/dashboard-onboarding-tour";
 import { Separator } from "@/components/ui/separator";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { supabase, type UserProfile } from "@/lib/supabase-client";
@@ -90,6 +91,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <Link
                 key={href}
                 href={href}
+                data-tour={
+                  href === "/dashboard"
+                    ? "dashboard-nav-overview"
+                    : href === "/dashboard/batches"
+                      ? "dashboard-nav-batches"
+                      : href === "/dashboard/reports"
+                        ? "dashboard-nav-reports"
+                        : href === "/dashboard/credits"
+                          ? "dashboard-nav-credits"
+                          : undefined
+                }
                 className={cn(
                   "flex items-center gap-3 rounded-[0.875rem] px-3 py-2.5 text-sm font-medium transition-colors",
                   active
@@ -125,7 +137,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {/* Footer */}
         <div className="border-t border-border p-3">
           {profile && (
-            <div className="mb-2 flex items-center gap-2 rounded-[0.875rem] bg-muted/70 px-3 py-2">
+            <div
+              className="mb-2 flex items-center gap-2 rounded-[0.875rem] bg-muted/70 px-3 py-2"
+              data-tour="dashboard-user-credit"
+            >
               <div className="grid size-7 shrink-0 place-items-center rounded-full bg-foreground text-xs font-bold text-background">
                 {(profile.full_name ?? profile.email ?? "?")[0].toUpperCase()}
               </div>
@@ -150,6 +165,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       {/* Main */}
       <main className="ml-64 flex-1 min-h-screen bg-background">{children}</main>
+      <DashboardOnboardingTour userId={profile?.id} />
     </div>
   );
 }
